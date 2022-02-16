@@ -57,9 +57,6 @@
             this.Help = new System.Windows.Forms.ToolStripDropDownButton();
             this.Info = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutMe = new System.Windows.Forms.ToolStripMenuItem();
-            this.OutRTB = new System.Windows.Forms.RichTextBox();
-            this.label1 = new System.Windows.Forms.Label();
-            this.label2 = new System.Windows.Forms.Label();
             this.StartButt = new System.Windows.Forms.Button();
             this.PasteButt = new System.Windows.Forms.Button();
             this.CopyButt = new System.Windows.Forms.Button();
@@ -72,8 +69,16 @@
             this.HelpButt = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.splitContainer1 = new System.Windows.Forms.SplitContainer();
+            this.label2 = new System.Windows.Forms.Label();
+            this.label1 = new System.Windows.Forms.Label();
+            this.OutRTB = new System.Windows.Forms.RichTextBox();
             this.TabControl1 = new System.Windows.Forms.TabControl();
             this.toolStrip1.SuspendLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
+            this.splitContainer1.Panel1.SuspendLayout();
+            this.splitContainer1.Panel2.SuspendLayout();
+            this.splitContainer1.SuspendLayout();
             this.SuspendLayout();
             // 
             // toolStrip1
@@ -87,7 +92,7 @@
             this.Help});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(891, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(899, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -103,7 +108,7 @@
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(59, 28);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(59, 24);
             this.toolStripDropDownButton1.Text = "Файл";
             // 
             // New
@@ -155,7 +160,7 @@
             this.Change.Image = ((System.Drawing.Image)(resources.GetObject("Change.Image")));
             this.Change.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Change.Name = "Change";
-            this.Change.Size = new System.Drawing.Size(74, 28);
+            this.Change.Size = new System.Drawing.Size(74, 24);
             this.Change.Text = "Правка";
             // 
             // Cancel
@@ -222,7 +227,7 @@
             this.Text.Image = ((System.Drawing.Image)(resources.GetObject("Text.Image")));
             this.Text.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Text.Name = "Text";
-            this.Text.Size = new System.Drawing.Size(59, 28);
+            this.Text.Size = new System.Drawing.Size(59, 24);
             this.Text.Text = "Текст";
             // 
             // ProblemStatement
@@ -279,7 +284,7 @@
             this.Start.Image = ((System.Drawing.Image)(resources.GetObject("Start.Image")));
             this.Start.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Start.Name = "Start";
-            this.Start.Size = new System.Drawing.Size(45, 28);
+            this.Start.Size = new System.Drawing.Size(45, 24);
             this.Start.Text = "Пукс";
             // 
             // Help
@@ -291,7 +296,7 @@
             this.Help.Image = ((System.Drawing.Image)(resources.GetObject("Help.Image")));
             this.Help.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Help.Name = "Help";
-            this.Help.Size = new System.Drawing.Size(83, 28);
+            this.Help.Size = new System.Drawing.Size(83, 24);
             this.Help.Text = "Помощь";
             // 
             // Info
@@ -307,39 +312,6 @@
             this.AboutMe.Size = new System.Drawing.Size(187, 26);
             this.AboutMe.Text = "О программе";
             this.AboutMe.Click += new System.EventHandler(this.AboutMe_Click);
-            // 
-            // OutRTB
-            // 
-            this.OutRTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.OutRTB.Location = new System.Drawing.Point(16, 540);
-            this.OutRTB.Margin = new System.Windows.Forms.Padding(4);
-            this.OutRTB.Name = "OutRTB";
-            this.OutRTB.ReadOnly = true;
-            this.OutRTB.Size = new System.Drawing.Size(862, 190);
-            this.OutRTB.TabIndex = 2;
-            this.OutRTB.Text = "";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(12, 110);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 17);
-            this.label1.TabIndex = 3;
-            this.label1.Text = "Текст программы:";
-            // 
-            // label2
-            // 
-            this.label2.Anchor = ((System.Windows.Forms.AnchorStyles)((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left)));
-            this.label2.AutoSize = true;
-            this.label2.Location = new System.Drawing.Point(17, 521);
-            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label2.Name = "label2";
-            this.label2.Size = new System.Drawing.Size(80, 17);
-            this.label2.TabIndex = 4;
-            this.label2.Text = "Результат:";
             // 
             // StartButt
             // 
@@ -474,6 +446,61 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // splitContainer1
+            // 
+            this.splitContainer1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.splitContainer1.Location = new System.Drawing.Point(12, 98);
+            this.splitContainer1.Name = "splitContainer1";
+            this.splitContainer1.Orientation = System.Windows.Forms.Orientation.Horizontal;
+            // 
+            // splitContainer1.Panel1
+            // 
+            this.splitContainer1.Panel1.Controls.Add(this.TabControl1);
+            this.splitContainer1.Panel1.Controls.Add(this.label1);
+            // 
+            // splitContainer1.Panel2
+            // 
+            this.splitContainer1.Panel2.Controls.Add(this.label2);
+            this.splitContainer1.Panel2.Controls.Add(this.OutRTB);
+            this.splitContainer1.Size = new System.Drawing.Size(875, 698);
+            this.splitContainer1.SplitterDistance = 474;
+            this.splitContainer1.TabIndex = 15;
+            // 
+            // label2
+            // 
+            this.label2.AutoSize = true;
+            this.label2.Location = new System.Drawing.Point(4, 5);
+            this.label2.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label2.Name = "label2";
+            this.label2.Size = new System.Drawing.Size(80, 17);
+            this.label2.TabIndex = 23;
+            this.label2.Text = "Результат:";
+            // 
+            // label1
+            // 
+            this.label1.AutoSize = true;
+            this.label1.Location = new System.Drawing.Point(4, 0);
+            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            this.label1.Name = "label1";
+            this.label1.Size = new System.Drawing.Size(127, 17);
+            this.label1.TabIndex = 22;
+            this.label1.Text = "Текст программы:";
+            // 
+            // OutRTB
+            // 
+            this.OutRTB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.OutRTB.Location = new System.Drawing.Point(4, 26);
+            this.OutRTB.Margin = new System.Windows.Forms.Padding(4);
+            this.OutRTB.Name = "OutRTB";
+            this.OutRTB.ReadOnly = true;
+            this.OutRTB.Size = new System.Drawing.Size(862, 190);
+            this.OutRTB.TabIndex = 21;
+            this.OutRTB.Text = "";
+            // 
             // TabControl1
             // 
             this.TabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
@@ -481,24 +508,20 @@
             | System.Windows.Forms.AnchorStyles.Right)));
             this.TabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.TabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.TabControl1.ItemSize = new System.Drawing.Size(150, 21);
-            this.TabControl1.Location = new System.Drawing.Point(12, 130);
-            this.TabControl1.Multiline = true;
+            this.TabControl1.Location = new System.Drawing.Point(7, 21);
             this.TabControl1.Name = "TabControl1";
-            this.TabControl1.Padding = new System.Drawing.Point(10, 3);
             this.TabControl1.SelectedIndex = 0;
-            this.TabControl1.Size = new System.Drawing.Size(867, 388);
-            this.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
-            this.TabControl1.TabIndex = 16;
-            this.TabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
-            this.TabControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TabControl_MouseDown);
+            this.TabControl1.Size = new System.Drawing.Size(859, 450);
+            this.TabControl1.TabIndex = 23;
+            this.TabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.TabControl1_DrawItem);
+            this.TabControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TabControl1_MouseDown);
             // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(891, 746);
-            this.Controls.Add(this.TabControl1);
+            this.ClientSize = new System.Drawing.Size(899, 808);
+            this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.HelpButt);
             this.Controls.Add(this.StartButt);
             this.Controls.Add(this.PasteButt);
@@ -509,15 +532,18 @@
             this.Controls.Add(this.SaveButt);
             this.Controls.Add(this.OpenButt);
             this.Controls.Add(this.NewButt);
-            this.Controls.Add(this.label2);
-            this.Controls.Add(this.label1);
-            this.Controls.Add(this.OutRTB);
             this.Controls.Add(this.toolStrip1);
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(906, 591);
             this.Name = "Form1";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
+            this.splitContainer1.Panel1.ResumeLayout(false);
+            this.splitContainer1.Panel1.PerformLayout();
+            this.splitContainer1.Panel2.ResumeLayout(false);
+            this.splitContainer1.Panel2.PerformLayout();
+            ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
+            this.splitContainer1.ResumeLayout(false);
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -551,9 +577,6 @@
         private System.Windows.Forms.ToolStripDropDownButton Help;
         private System.Windows.Forms.ToolStripMenuItem Info;
         private System.Windows.Forms.ToolStripMenuItem AboutMe;
-        private System.Windows.Forms.RichTextBox OutRTB;
-        private System.Windows.Forms.Label label1;
-        private System.Windows.Forms.Label label2;
         private System.Windows.Forms.Button NewButt;
         private System.Windows.Forms.Button OpenButt;
         private System.Windows.Forms.Button SaveButt;
@@ -568,6 +591,10 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem Save;
         private System.Windows.Forms.ToolStripMenuItem Copy;
+        private System.Windows.Forms.SplitContainer splitContainer1;
+        private System.Windows.Forms.Label label1;
+        private System.Windows.Forms.Label label2;
+        private System.Windows.Forms.RichTextBox OutRTB;
         private System.Windows.Forms.TabControl TabControl1;
     }
 }

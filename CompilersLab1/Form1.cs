@@ -20,7 +20,7 @@ namespace CompilersLab1
         {
             InitializeComponent();
             saveFileDialog1.Filter = "Text files(*.txt)|*.txt|All files(*.*)|*.*";
-
+            
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -45,26 +45,27 @@ namespace CompilersLab1
         void NewPageFunc(string name)
         {
             string title;
+            string format = Path.GetFileName(name).Split('.').Last();
             if (name == "")
                 title = "newFile" + (TabControl1.TabCount + 1).ToString();
             else
-                title = Path.GetFileName(name);
+                title = Path.GetFileName(name) + "     ";
             //создаем объект вкладки
             TabPage myTabPage = new TabPage(title);
             //пихаем в таб контрол
             TabControl1.TabPages.Add(myTabPage);
             //создаем поле для текста
             FastColoredTextBoxNS.FastColoredTextBox newtextBox = new FastColoredTextBoxNS.FastColoredTextBox();
-            if (title.Split('.').Last() == "cs")
+            if (format == "cs")
                 newtextBox.Language = FastColoredTextBoxNS.Language.CSharp;
 
-            if (title.Split('.').Last() == "html")
+            if (format == "html")
                 newtextBox.Language = FastColoredTextBoxNS.Language.HTML;
 
-            if (title.Split('.').Last() == "sql")
+            if (format == "sql")
                 newtextBox.Language = FastColoredTextBoxNS.Language.SQL;
 
-            if (title.Split('.').Last() == "js")
+            if (format == "js")
                 newtextBox.Language = FastColoredTextBoxNS.Language.JS;
 
             //размеры поля
@@ -248,7 +249,7 @@ namespace CompilersLab1
                 MessageBox.Show(sr.ReadToEnd(), "О программе:", MessageBoxButtons.OK, MessageBoxIcon.Information);
         }
 
-        private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
+        private void TabControl1_DrawItem(object sender, DrawItemEventArgs e)
         {
             try
             {
@@ -271,7 +272,7 @@ namespace CompilersLab1
             }
         }
 
-        private void TabControl_MouseDown(object sender, MouseEventArgs e)
+        private void TabControl1_MouseDown(object sender, MouseEventArgs e)
         {
             // Process MouseDown event only till (tabControl.TabPages.Count - 1) excluding the last TabPage
             for (var i = 0; i < this.TabControl1.TabPages.Count; i++)
@@ -290,7 +291,6 @@ namespace CompilersLab1
                     break;
                 }
             }
-
         }
     }
 }
