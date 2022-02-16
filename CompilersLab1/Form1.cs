@@ -14,18 +14,20 @@ namespace CompilersLab1
     public partial class Form1 : Form
     {
         string filePath = "";
+        //крестик для кнопок
+        public string closeButtonFullPath = @"C:\Users\Егор\source\repos\CompilersLab1\X.png";
         public Form1()
         {
             InitializeComponent();
             saveFileDialog1.Filter = "Text files(*.txt)|*.txt|All files(*.*)|*.*";
-            bool hjswb = InputRTB.CanUndo;
+
         }
 
         private void Exit_Click(object sender, EventArgs e)
         {
             //сохранение файла
             if (filePath != "")
-                System.IO.File.WriteAllText(filePath, InputRTB.Text);
+                System.IO.File.WriteAllText(filePath, TabControl1.SelectedTab.Controls[0].Text);
             else
                 SaveAs_Click(null, null);
 
@@ -34,53 +36,64 @@ namespace CompilersLab1
 
         void OpenFile()
         {
-            SaveFunc();
             if (openFileDialog1.ShowDialog() != DialogResult.Cancel)
             {
                 if (openFileDialog1.FileName != "")
                     filePath = openFileDialog1.FileName;
+                NewPageFunc(filePath);
                 using (StreamReader sr = new StreamReader(filePath))
                 {
-                    InputRTB.Text = sr.ReadToEnd();
+                    TabControl1.SelectedTab.Controls[0].Text = sr.ReadToEnd();
                 }
                 OutRTB.Text = "";
             }
         }
+        void NewPageFunc(string name)
+        {
+            string title;
+            if (name == "")
+                title = "newFile" + (TabControl1.TabCount + 1).ToString();
+            else
+                title = Path.GetFileName(name);
+            TabPage myTabPage = new TabPage(title);
+            TabControl1.TabPages.Add(myTabPage);
+            FastColoredTextBoxNS.FastColoredTextBox newtextBox = new FastColoredTextBoxNS.FastColoredTextBox();
+            newtextBox.Size = myTabPage.Size;
+            TabControl1.TabPages[TabControl1.TabPages.Count - 1].Controls.Add(newtextBox);
+            TabControl1.TabPages[TabControl1.TabPages.Count - 1].Controls[0].Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            TabControl1.SelectedTab = TabControl1.TabPages[TabControl1.TabPages.Count - 1];
+            ToolStripMenuItem path = new ToolStripMenuItem(name);
+            ContextMenuStrip menuStrip = new ContextMenuStrip();
+            menuStrip.Items.AddRange(new[] { path });
+            TabControl1.SelectedTab.ContextMenuStrip = menuStrip;
+        }
         void NewFileFunc()
         {
-
-            SaveFunc();
-            InputRTB.Text = "";
             OutRTB.Text = "";
-            saveFileDialog1.Title = "Введите имя нового файла:";
-            saveFileDialog1.Filter = "Text files(*.txt)|*.txt|All files(*.*)|*.*";
-            if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
-                return;
-            // получаем выбранный файл
-            filePath = saveFileDialog1.FileName;
-
+            NewPageFunc("");
         }
         void SaveFunc()
         {
-            if(filePath == "" && InputRTB.Text == "")
-            if (filePath != "")
-                System.IO.File.WriteAllText(filePath, InputRTB.Text);
+            if(TabControl1.SelectedTab.ContextMenuStrip.Items[0].Text != "")
+                System.IO.File.WriteAllText(TabControl1.SelectedTab.ContextMenuStrip.Items[0].Text, TabControl1.SelectedTab.Controls[0].Text);
             else
                 SaveAs_Click(null, null);
         }
 
         void CopyFunc()
         {
-            Clipboard.SetText(InputRTB.SelectedText);
+            FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
+            InputRTB.Copy();
         }
         void PasteFunc()
         {
+            FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.Paste();
         }
         void CutFunc()
         {
-            Clipboard.SetText(InputRTB.SelectedText);
-            InputRTB.SelectedText = "";
+            FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
+            InputRTB.Cut();
         }
         private void Open_Click(object sender, EventArgs e)
         {
@@ -106,7 +119,7 @@ namespace CompilersLab1
                 return;
             // получаем выбранный файл
             filePath = saveFileDialog1.FileName;
-            System.IO.File.WriteAllText(filePath, InputRTB.Text);
+            System.IO.File.WriteAllText(filePath, TabControl1.SelectedTab.Controls[0].Text);
         }
 
         private void New_Click(object sender, EventArgs e)
@@ -151,31 +164,37 @@ namespace CompilersLab1
 
         private void Delete_Click(object sender, EventArgs e)
         {
+            FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.SelectedText = "";
         }
 
         private void SelectAll_Click(object sender, EventArgs e)
         {
+            FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.SelectAll();
         }
 
         private void CancelButt_Click(object sender, EventArgs e)
         {
+            FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.Undo();
         }
 
         private void Cancel_Click(object sender, EventArgs e)
         {
+            FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.Undo();
         }
 
         private void RepeatButt_Click(object sender, EventArgs e)
         {
+            FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.Redo();
         }
 
         private void Repeat_Click(object sender, EventArgs e)
         {
+            FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.Redo();
         }
 
@@ -201,6 +220,52 @@ namespace CompilersLab1
 
             using (StreamReader sr = new StreamReader(path))
                 MessageBox.Show(sr.ReadToEnd(), "О программе:", MessageBoxButtons.OK, MessageBoxIcon.Information);
+        }
+
+        private void tabControl1_DrawItem(object sender, DrawItemEventArgs e)
+        {
+            try
+            {
+                var tabPage = this.TabControl1.TabPages[e.Index];
+                var tabRect = this.TabControl1.GetTabRect(e.Index);
+                tabRect.Inflate(-2, -2);
+                // draw Close button to all other TabPages
+                
+                var closeImage = new Bitmap(closeButtonFullPath);
+                e.Graphics.DrawImage(closeImage,
+                    (tabRect.Right - closeImage.Width),
+                    tabRect.Top + (tabRect.Height - closeImage.Height) / 2);
+                TextRenderer.DrawText(e.Graphics, tabPage.Text, tabPage.Font,
+                    tabRect, tabPage.ForeColor, TextFormatFlags.Left);
+                
+            }
+            catch (Exception ex) 
+            {
+                throw new Exception(ex.Message); 
+            }
+        }
+
+        private void TabControl_MouseDown(object sender, MouseEventArgs e)
+        {
+            // Process MouseDown event only till (tabControl.TabPages.Count - 1) excluding the last TabPage
+            for (var i = 0; i < this.TabControl1.TabPages.Count; i++)
+            {
+                var tabRect = this.TabControl1.GetTabRect(i);
+                tabRect.Inflate(-2, -2);
+                var closeImage = new Bitmap(closeButtonFullPath);
+                var imageRect = new Rectangle(
+                    (tabRect.Right - closeImage.Width),
+                    tabRect.Top + (tabRect.Height - closeImage.Height) / 2,
+                    closeImage.Width,
+                    closeImage.Height);
+                if (imageRect.Contains(e.Location))
+                {
+                    SaveFunc();
+                    this.TabControl1.TabPages.RemoveAt(i);
+                    break;
+                }
+            }
+
         }
     }
 }

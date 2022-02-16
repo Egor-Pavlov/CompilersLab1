@@ -57,7 +57,6 @@
             this.Help = new System.Windows.Forms.ToolStripDropDownButton();
             this.Info = new System.Windows.Forms.ToolStripMenuItem();
             this.AboutMe = new System.Windows.Forms.ToolStripMenuItem();
-            this.InputRTB = new System.Windows.Forms.RichTextBox();
             this.OutRTB = new System.Windows.Forms.RichTextBox();
             this.label1 = new System.Windows.Forms.Label();
             this.label2 = new System.Windows.Forms.Label();
@@ -73,6 +72,7 @@
             this.HelpButt = new System.Windows.Forms.Button();
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
+            this.TabControl1 = new System.Windows.Forms.TabControl();
             this.toolStrip1.SuspendLayout();
             this.SuspendLayout();
             // 
@@ -308,27 +308,15 @@
             this.AboutMe.Text = "О программе";
             this.AboutMe.Click += new System.EventHandler(this.AboutMe_Click);
             // 
-            // InputRTB
-            // 
-            this.InputRTB.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.InputRTB.Location = new System.Drawing.Point(16, 140);
-            this.InputRTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
-            this.InputRTB.Name = "InputRTB";
-            this.InputRTB.Size = new System.Drawing.Size(852, 376);
-            this.InputRTB.TabIndex = 1;
-            this.InputRTB.Text = "";
-            // 
             // OutRTB
             // 
             this.OutRTB.Anchor = ((System.Windows.Forms.AnchorStyles)(((System.Windows.Forms.AnchorStyles.Bottom | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
             this.OutRTB.Location = new System.Drawing.Point(16, 540);
-            this.OutRTB.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.OutRTB.Margin = new System.Windows.Forms.Padding(4);
             this.OutRTB.Name = "OutRTB";
             this.OutRTB.ReadOnly = true;
-            this.OutRTB.Size = new System.Drawing.Size(852, 190);
+            this.OutRTB.Size = new System.Drawing.Size(862, 190);
             this.OutRTB.TabIndex = 2;
             this.OutRTB.Text = "";
             // 
@@ -359,7 +347,7 @@
             this.StartButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.StartButt.Image = global::CompilersLab1.Properties.Resources.start4;
             this.StartButt.Location = new System.Drawing.Point(709, 31);
-            this.StartButt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.StartButt.Margin = new System.Windows.Forms.Padding(4);
             this.StartButt.Name = "StartButt";
             this.StartButt.Size = new System.Drawing.Size(72, 60);
             this.StartButt.TabIndex = 13;
@@ -371,7 +359,7 @@
             this.PasteButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.PasteButt.Image = global::CompilersLab1.Properties.Resources.Paste;
             this.PasteButt.Location = new System.Drawing.Point(629, 31);
-            this.PasteButt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.PasteButt.Margin = new System.Windows.Forms.Padding(4);
             this.PasteButt.Name = "PasteButt";
             this.PasteButt.Size = new System.Drawing.Size(72, 60);
             this.PasteButt.TabIndex = 12;
@@ -384,7 +372,7 @@
             this.CopyButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CopyButt.Image = global::CompilersLab1.Properties.Resources.Copy;
             this.CopyButt.Location = new System.Drawing.Point(549, 31);
-            this.CopyButt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CopyButt.Margin = new System.Windows.Forms.Padding(4);
             this.CopyButt.Name = "CopyButt";
             this.CopyButt.Size = new System.Drawing.Size(72, 60);
             this.CopyButt.TabIndex = 11;
@@ -397,7 +385,7 @@
             this.CutButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CutButt.Image = global::CompilersLab1.Properties.Resources.Cut;
             this.CutButt.Location = new System.Drawing.Point(469, 31);
-            this.CutButt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CutButt.Margin = new System.Windows.Forms.Padding(4);
             this.CutButt.Name = "CutButt";
             this.CutButt.Size = new System.Drawing.Size(72, 60);
             this.CutButt.TabIndex = 10;
@@ -410,7 +398,7 @@
             this.RepeatButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.RepeatButt.Image = global::CompilersLab1.Properties.Resources.Redo;
             this.RepeatButt.Location = new System.Drawing.Point(389, 31);
-            this.RepeatButt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.RepeatButt.Margin = new System.Windows.Forms.Padding(4);
             this.RepeatButt.Name = "RepeatButt";
             this.RepeatButt.Size = new System.Drawing.Size(72, 60);
             this.RepeatButt.TabIndex = 9;
@@ -423,7 +411,7 @@
             this.CancelButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.CancelButt.Image = global::CompilersLab1.Properties.Resources.Undo;
             this.CancelButt.Location = new System.Drawing.Point(309, 31);
-            this.CancelButt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.CancelButt.Margin = new System.Windows.Forms.Padding(4);
             this.CancelButt.Name = "CancelButt";
             this.CancelButt.Size = new System.Drawing.Size(72, 60);
             this.CancelButt.TabIndex = 8;
@@ -436,7 +424,7 @@
             this.SaveButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.SaveButt.Image = global::CompilersLab1.Properties.Resources.Save;
             this.SaveButt.Location = new System.Drawing.Point(177, 31);
-            this.SaveButt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.SaveButt.Margin = new System.Windows.Forms.Padding(4);
             this.SaveButt.Name = "SaveButt";
             this.SaveButt.Size = new System.Drawing.Size(72, 60);
             this.SaveButt.TabIndex = 7;
@@ -449,7 +437,7 @@
             this.OpenButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.OpenButt.Image = global::CompilersLab1.Properties.Resources.Open;
             this.OpenButt.Location = new System.Drawing.Point(87, 31);
-            this.OpenButt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.OpenButt.Margin = new System.Windows.Forms.Padding(4);
             this.OpenButt.Name = "OpenButt";
             this.OpenButt.Size = new System.Drawing.Size(83, 60);
             this.OpenButt.TabIndex = 6;
@@ -462,7 +450,7 @@
             this.NewButt.FlatStyle = System.Windows.Forms.FlatStyle.Popup;
             this.NewButt.Image = global::CompilersLab1.Properties.Resources.New;
             this.NewButt.Location = new System.Drawing.Point(16, 31);
-            this.NewButt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.NewButt.Margin = new System.Windows.Forms.Padding(4);
             this.NewButt.Name = "NewButt";
             this.NewButt.Size = new System.Drawing.Size(63, 60);
             this.NewButt.TabIndex = 5;
@@ -475,7 +463,7 @@
             this.HelpButt.FlatStyle = System.Windows.Forms.FlatStyle.Flat;
             this.HelpButt.Image = global::CompilersLab1.Properties.Resources.Help;
             this.HelpButt.Location = new System.Drawing.Point(789, 31);
-            this.HelpButt.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.HelpButt.Margin = new System.Windows.Forms.Padding(4);
             this.HelpButt.Name = "HelpButt";
             this.HelpButt.Size = new System.Drawing.Size(72, 60);
             this.HelpButt.TabIndex = 14;
@@ -486,11 +474,30 @@
             // 
             this.openFileDialog1.FileName = "openFileDialog1";
             // 
+            // TabControl1
+            // 
+            this.TabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.TabControl1.ItemSize = new System.Drawing.Size(100, 21);
+            this.TabControl1.Location = new System.Drawing.Point(12, 130);
+            this.TabControl1.Multiline = true;
+            this.TabControl1.Name = "TabControl1";
+            this.TabControl1.Padding = new System.Drawing.Point(10, 3);
+            this.TabControl1.SelectedIndex = 0;
+            this.TabControl1.Size = new System.Drawing.Size(867, 388);
+            this.TabControl1.SizeMode = System.Windows.Forms.TabSizeMode.Fixed;
+            this.TabControl1.TabIndex = 16;
+            this.TabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.tabControl1_DrawItem);
+            this.TabControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TabControl_MouseDown);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(891, 746);
+            this.Controls.Add(this.TabControl1);
             this.Controls.Add(this.HelpButt);
             this.Controls.Add(this.StartButt);
             this.Controls.Add(this.PasteButt);
@@ -504,9 +511,8 @@
             this.Controls.Add(this.label2);
             this.Controls.Add(this.label1);
             this.Controls.Add(this.OutRTB);
-            this.Controls.Add(this.InputRTB);
             this.Controls.Add(this.toolStrip1);
-            this.Margin = new System.Windows.Forms.Padding(4, 4, 4, 4);
+            this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(906, 591);
             this.Name = "Form1";
             this.toolStrip1.ResumeLayout(false);
@@ -544,7 +550,6 @@
         private System.Windows.Forms.ToolStripDropDownButton Help;
         private System.Windows.Forms.ToolStripMenuItem Info;
         private System.Windows.Forms.ToolStripMenuItem AboutMe;
-        private System.Windows.Forms.RichTextBox InputRTB;
         private System.Windows.Forms.RichTextBox OutRTB;
         private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
@@ -562,6 +567,7 @@
         private System.Windows.Forms.SaveFileDialog saveFileDialog1;
         private System.Windows.Forms.ToolStripMenuItem Save;
         private System.Windows.Forms.ToolStripMenuItem Copy;
+        private System.Windows.Forms.TabControl TabControl1;
     }
 }
 
