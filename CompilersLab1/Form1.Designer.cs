@@ -87,7 +87,7 @@
             this.Help});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(891, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(891, 31);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -103,7 +103,7 @@
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(59, 24);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(59, 28);
             this.toolStripDropDownButton1.Text = "Файл";
             // 
             // New
@@ -155,7 +155,7 @@
             this.Change.Image = ((System.Drawing.Image)(resources.GetObject("Change.Image")));
             this.Change.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Change.Name = "Change";
-            this.Change.Size = new System.Drawing.Size(74, 24);
+            this.Change.Size = new System.Drawing.Size(74, 28);
             this.Change.Text = "Правка";
             // 
             // Cancel
@@ -222,7 +222,7 @@
             this.Text.Image = ((System.Drawing.Image)(resources.GetObject("Text.Image")));
             this.Text.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Text.Name = "Text";
-            this.Text.Size = new System.Drawing.Size(59, 24);
+            this.Text.Size = new System.Drawing.Size(59, 28);
             this.Text.Text = "Текст";
             // 
             // ProblemStatement
@@ -279,7 +279,7 @@
             this.Start.Image = ((System.Drawing.Image)(resources.GetObject("Start.Image")));
             this.Start.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Start.Name = "Start";
-            this.Start.Size = new System.Drawing.Size(45, 24);
+            this.Start.Size = new System.Drawing.Size(45, 28);
             this.Start.Text = "Пукс";
             // 
             // Help
@@ -291,7 +291,7 @@
             this.Help.Image = ((System.Drawing.Image)(resources.GetObject("Help.Image")));
             this.Help.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Help.Name = "Help";
-            this.Help.Size = new System.Drawing.Size(83, 24);
+            this.Help.Size = new System.Drawing.Size(83, 28);
             this.Help.Text = "Помощь";
             // 
             // Info
@@ -479,8 +479,9 @@
             this.TabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
+            this.TabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.TabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.TabControl1.ItemSize = new System.Drawing.Size(100, 21);
+            this.TabControl1.ItemSize = new System.Drawing.Size(150, 21);
             this.TabControl1.Location = new System.Drawing.Point(12, 130);
             this.TabControl1.Multiline = true;
             this.TabControl1.Name = "TabControl1";

@@ -25,12 +25,6 @@ namespace CompilersLab1
 
         private void Exit_Click(object sender, EventArgs e)
         {
-            //сохранение файла
-            if (filePath != "")
-                System.IO.File.WriteAllText(filePath, TabControl1.SelectedTab.Controls[0].Text);
-            else
-                SaveAs_Click(null, null);
-
             Close();
         }
 
@@ -55,16 +49,40 @@ namespace CompilersLab1
                 title = "newFile" + (TabControl1.TabCount + 1).ToString();
             else
                 title = Path.GetFileName(name);
+            //создаем объект вкладки
             TabPage myTabPage = new TabPage(title);
+            //пихаем в таб контрол
             TabControl1.TabPages.Add(myTabPage);
+            //создаем поле для текста
             FastColoredTextBoxNS.FastColoredTextBox newtextBox = new FastColoredTextBoxNS.FastColoredTextBox();
+            if (title.Split('.').Last() == "cs")
+                newtextBox.Language = FastColoredTextBoxNS.Language.CSharp;
+
+            if (title.Split('.').Last() == "html")
+                newtextBox.Language = FastColoredTextBoxNS.Language.HTML;
+
+            if (title.Split('.').Last() == "sql")
+                newtextBox.Language = FastColoredTextBoxNS.Language.SQL;
+
+            if (title.Split('.').Last() == "js")
+                newtextBox.Language = FastColoredTextBoxNS.Language.JS;
+
+            //размеры поля
             newtextBox.Size = myTabPage.Size;
+            //засовываем поле во вкладку
             TabControl1.TabPages[TabControl1.TabPages.Count - 1].Controls.Add(newtextBox);
-            TabControl1.TabPages[TabControl1.TabPages.Count - 1].Controls[0].Anchor = AnchorStyles.Top | AnchorStyles.Bottom | AnchorStyles.Left | AnchorStyles.Right;
+            //привязываем поле к границам вкладки
+            TabControl1.TabPages[TabControl1.TabPages.Count - 1].Controls[0].Anchor = AnchorStyles.Top | AnchorStyles.Bottom
+                | AnchorStyles.Left | AnchorStyles.Right;
+            //переходим на свежую вкладку
             TabControl1.SelectedTab = TabControl1.TabPages[TabControl1.TabPages.Count - 1];
+            //создаем справку путем к файлу (пользователь вспомнит где файл, и программа тоже)
             ToolStripMenuItem path = new ToolStripMenuItem(name);
+            //создаем контекстное меню
             ContextMenuStrip menuStrip = new ContextMenuStrip();
+            //добавляем в меню поле
             menuStrip.Items.AddRange(new[] { path });
+            //присваиваем вкладке созданное меню
             TabControl1.SelectedTab.ContextMenuStrip = menuStrip;
         }
         void NewFileFunc()
@@ -74,8 +92,16 @@ namespace CompilersLab1
         }
         void SaveFunc()
         {
-            if(TabControl1.SelectedTab.ContextMenuStrip.Items[0].Text != "")
-                System.IO.File.WriteAllText(TabControl1.SelectedTab.ContextMenuStrip.Items[0].Text, TabControl1.SelectedTab.Controls[0].Text);
+
+            if (TabControl1.SelectedTab.ContextMenuStrip.Items[0].Text != "")
+                try
+                {
+                    System.IO.File.WriteAllText(TabControl1.SelectedTab.ContextMenuStrip.Items[0].Text, TabControl1.SelectedTab.Controls[0].Text);
+                }
+                catch
+                {
+                    SaveAs_Click(null, null);
+                }
             else
                 SaveAs_Click(null, null);
         }
@@ -230,18 +256,18 @@ namespace CompilersLab1
                 var tabRect = this.TabControl1.GetTabRect(e.Index);
                 tabRect.Inflate(-2, -2);
                 // draw Close button to all other TabPages
-                
+
                 var closeImage = new Bitmap(closeButtonFullPath);
                 e.Graphics.DrawImage(closeImage,
                     (tabRect.Right - closeImage.Width),
                     tabRect.Top + (tabRect.Height - closeImage.Height) / 2);
                 TextRenderer.DrawText(e.Graphics, tabPage.Text, tabPage.Font,
                     tabRect, tabPage.ForeColor, TextFormatFlags.Left);
-                
+
             }
-            catch (Exception ex) 
+            catch (Exception ex)
             {
-                throw new Exception(ex.Message); 
+                throw new Exception(ex.Message);
             }
         }
 
@@ -260,7 +286,6 @@ namespace CompilersLab1
                     closeImage.Height);
                 if (imageRect.Contains(e.Location))
                 {
-                    SaveFunc();
                     this.TabControl1.TabPages.RemoveAt(i);
                     break;
                 }

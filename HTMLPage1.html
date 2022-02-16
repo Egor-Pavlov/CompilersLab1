@@ -1,0 +1,51 @@
+﻿<!DOCTYPE html>
+
+<html lang="en">
+<head>
+    <link rel="stylesheet" href="style.css">
+    <script type="text/javascript" src="function.js"></script>
+    <title>Технологии и методы программирования</title>
+</head>
+
+<body>
+    <div class="Container">
+        <div class='Settings'>
+            <p>Выберите один из алгоритмов сортирвоки:</p>
+            <select name="SortingAlg" class="SortCombo" id="sortcombo">
+                <option value="Heap">Пирамидальная</option>
+                <option value="Bubble">Пузырек</option>
+                <option value="Insert">Вставками</option>
+                <option value="Shell">Шелла</option>
+                <option value="Gnome">Гномья</option>
+                <option value="Cocktail">Перемешивание</option>
+                <option value="Choose">Выбором</option>
+            </select>
+            <br />
+            <p>Введите размер генерируемого массива<br>(по умолчанию 100): </p>
+            <input type="number" name="SizeSpin" id="sizespin" min="2" value="100" required>
+
+            <p>Введите скорость отрисовки(в секундах)<br>(по умолчанию 0.01): </p>
+            <input type="number" name="SpeedSpin" value="0.01" step='0.1' id="speedspin" min="0.01" required>
+            <p><input type="checkbox" onclick="CheckChanged()" name="asd" id="check" class="check"> Автоматическое заполнение</p>
+            <p>Введите элементы массива (через пробел):</p>
+            <textarea name="Area" class="TextArea" id="text" cols="15" rows="1"></textarea>
+
+
+            <button onclick="CreateArray()" class="ShowButton">Показать массив</button>
+
+            <button onclick="Sort()" class='Button'>Отсортировать</button>
+
+            <p>Выберите один из алгоритмов поиска:</p>
+            <select name="SearchingAlg" class="SearchCombo" id="searchcombo">
+                <option value="Line">Линейный</option>
+                <option value="Bin">Бинарный</option>
+            </select>
+            <p>Введите число для поиска:</p>
+            <textarea name="Area2" class="TextArea2" id="value" cols="10" rows="1"></textarea>
+            <br><button onclick="Search()" class="SearchButton">Найти индекс элемента</button>
+            <br><output id="Out"></output>
+        </div>
+        <canvas id='Visualization' class='Visualization'></canvas>
+    </div>
+</body>
+</html>
