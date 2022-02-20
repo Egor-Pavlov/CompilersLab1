@@ -8,6 +8,8 @@ using System.Text;
 using System.Threading.Tasks;
 using System.Windows.Forms;
 using System.IO;
+using System.Text.RegularExpressions;
+using System.Windows;
 
 namespace CompilersLab1
 {
@@ -19,13 +21,24 @@ namespace CompilersLab1
         public Form1()
         {
             InitializeComponent();
-            saveFileDialog1.Filter = "Text files(*.txt)|*.txt|All files(*.*)|*.*";
-            
+            this.FormClosing += Exit_Click;
         }
 
         private void Exit_Click(object sender, EventArgs e)
         {
-            Close();
+            for (int i = TabControl1.TabPages.Count -1; i >= 0; i--)
+            {
+                if (TabControl1.TabPages[i].Text[0] == '*')
+                {
+                    DialogResult result = MessageBox.Show("Сохранить файл " + TabControl1.TabPages[i].Text.Replace("*", "").Replace(" ", "")
+                        + " перед закрытием?", "Сообщение", MessageBoxButtons.YesNo, MessageBoxIcon.Question, MessageBoxDefaultButton.Button1,
+                                MessageBoxOptions.DefaultDesktopOnly);
+                    if (result == DialogResult.Yes)
+                        SaveFunc();
+                }
+                this.TabControl1.TabPages.RemoveAt(i);
+            }
+            Application.Exit();
         }
 
         void OpenFile()
@@ -35,10 +48,7 @@ namespace CompilersLab1
                 if (openFileDialog1.FileName != "")
                     filePath = openFileDialog1.FileName;
                 NewPageFunc(filePath);
-                using (StreamReader sr = new StreamReader(filePath))
-                {
-                    TabControl1.SelectedTab.Controls[0].Text = sr.ReadToEnd();
-                }
+
                 OutRTB.Text = "";
             }
         }
@@ -68,8 +78,15 @@ namespace CompilersLab1
             if (format == "js")
                 newtextBox.Language = FastColoredTextBoxNS.Language.JS;
 
+            newtextBox.TextChanged += new EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(FCTB_textChanged);
+            
+            using (StreamReader sr = new StreamReader(filePath))
+            {
+                newtextBox.Text = sr.ReadToEnd();
+            }
             //размеры поля
             newtextBox.Size = myTabPage.Size;
+            
             //засовываем поле во вкладку
             TabControl1.TabPages[TabControl1.TabPages.Count - 1].Controls.Add(newtextBox);
             //привязываем поле к границам вкладки
@@ -85,7 +102,27 @@ namespace CompilersLab1
             menuStrip.Items.AddRange(new[] { path });
             //присваиваем вкладке созданное меню
             TabControl1.SelectedTab.ContextMenuStrip = menuStrip;
+            
         }
+        FastColoredTextBoxNS.Style RedStyle = new FastColoredTextBoxNS.TextStyle(Brushes.Red, null, FontStyle.Bold);
+        FastColoredTextBoxNS.Style GreenStyle = new FastColoredTextBoxNS.TextStyle(Brushes.Green, null, FontStyle.Italic);
+        FastColoredTextBoxNS.Style BlueStyle = new FastColoredTextBoxNS.TextStyle(Brushes.Blue, null, FontStyle.Regular);
+
+        public void FCTB_textChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
+        {
+            if (TabControl1.SelectedTab.Text[0] != '*')
+                TabControl1.SelectedTab.Text = "*" + TabControl1.SelectedTab.Text;
+
+            //очистить стиль в измененном блоке текста
+            e.ChangedRange.ClearStyle(RedStyle);
+            e.ChangedRange.ClearStyle(GreenStyle);
+
+            //подсветка нескольких слов через регулярное выражение
+            e.ChangedRange.SetStyle(RedStyle, @"(class|struct|enum)");
+            e.ChangedRange.SetStyle(BlueStyle, @"(int|double|string|bool|char|float|public|private|protected)");
+            e.ChangedRange.SetStyle(GreenStyle, @"//.*$", RegexOptions.Multiline);
+        }
+       
         void NewFileFunc()
         {
             OutRTB.Text = "";
@@ -93,16 +130,20 @@ namespace CompilersLab1
         }
         void SaveFunc()
         {
-
+            //если во вкладке записан путь
             if (TabControl1.SelectedTab.ContextMenuStrip.Items[0].Text != "")
                 try
                 {
                     System.IO.File.WriteAllText(TabControl1.SelectedTab.ContextMenuStrip.Items[0].Text, TabControl1.SelectedTab.Controls[0].Text);
+                    //убираем значок несохраненного файла
+                    TabControl1.SelectedTab.Text.Replace("*", "");
                 }
                 catch
                 {
+                    //если что-то с путем то просим ввести его
                     SaveAs_Click(null, null);
                 }
+            //если пути нет(новый файл)
             else
                 SaveAs_Click(null, null);
         }
@@ -140,13 +181,23 @@ namespace CompilersLab1
         {
             SaveFunc();
         }
+        //сохранить как
         private void SaveAs_Click(object sender, EventArgs e)
         {
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
+            ToolStripMenuItem path = new ToolStripMenuItem(saveFileDialog1.FileName);
             // получаем выбранный файл
-            filePath = saveFileDialog1.FileName;
-            System.IO.File.WriteAllText(filePath, TabControl1.SelectedTab.Controls[0].Text);
+            TabControl1.SelectedTab.ContextMenuStrip.Items.Clear();
+            TabControl1.SelectedTab.ContextMenuStrip.Items.AddRange(new[] { path });
+            System.IO.File.WriteAllText(TabControl1.SelectedTab.ContextMenuStrip.Items[0].Text, TabControl1.SelectedTab.Controls[0].Text);
+            TabControl1.SelectedTab.Text.Replace("*", "");
+            //если файл был переименован
+            string title = Path.GetFileName(Path.GetFileName(TabControl1.SelectedTab.ContextMenuStrip.Items[0].Text));
+            if (title != TabControl1.SelectedTab.Text.Replace(" ", ""))
+            {
+                TabControl1.SelectedTab.Text = title + "     ";
+            }
         }
 
         private void New_Click(object sender, EventArgs e)
@@ -274,7 +325,7 @@ namespace CompilersLab1
 
         private void TabControl1_MouseDown(object sender, MouseEventArgs e)
         {
-            // Process MouseDown event only till (tabControl.TabPages.Count - 1) excluding the last TabPage
+            // обрабатываем куда нажали мышкой
             for (var i = 0; i < this.TabControl1.TabPages.Count; i++)
             {
                 var tabRect = this.TabControl1.GetTabRect(i);
@@ -285,12 +336,27 @@ namespace CompilersLab1
                     tabRect.Top + (tabRect.Height - closeImage.Height) / 2,
                     closeImage.Width,
                     closeImage.Height);
+                //если нажали на крестик - закрываем
                 if (imageRect.Contains(e.Location))
                 {
+                    //предлагаем сохранить
+                    if (TabControl1.TabPages[i].Text[0] == '*')
+                    {
+                        DialogResult result = MessageBox.Show(
+                            "Сохранить файл " + TabControl1.SelectedTab.Text.Replace("*", "").Replace(" ", "") + " перед закрытием?",
+                            "Сообщение",
+                            MessageBoxButtons.YesNo,
+                            MessageBoxIcon.Question,
+                            MessageBoxDefaultButton.Button1,
+                            MessageBoxOptions.DefaultDesktopOnly);
+                        if (result == DialogResult.Yes)
+                            SaveFunc();
+                    }
                     this.TabControl1.TabPages.RemoveAt(i);
                     break;
                 }
             }
         }
+
     }
 }

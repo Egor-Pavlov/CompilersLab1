@@ -70,10 +70,9 @@
             this.openFileDialog1 = new System.Windows.Forms.OpenFileDialog();
             this.saveFileDialog1 = new System.Windows.Forms.SaveFileDialog();
             this.splitContainer1 = new System.Windows.Forms.SplitContainer();
-            this.label2 = new System.Windows.Forms.Label();
-            this.label1 = new System.Windows.Forms.Label();
-            this.OutRTB = new System.Windows.Forms.RichTextBox();
             this.TabControl1 = new System.Windows.Forms.TabControl();
+            this.label2 = new System.Windows.Forms.Label();
+            this.OutRTB = new System.Windows.Forms.RichTextBox();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -302,14 +301,14 @@
             // Info
             // 
             this.Info.Name = "Info";
-            this.Info.Size = new System.Drawing.Size(187, 26);
+            this.Info.Size = new System.Drawing.Size(224, 26);
             this.Info.Text = "Справка";
             this.Info.Click += new System.EventHandler(this.Info_Click);
             // 
             // AboutMe
             // 
             this.AboutMe.Name = "AboutMe";
-            this.AboutMe.Size = new System.Drawing.Size(187, 26);
+            this.AboutMe.Size = new System.Drawing.Size(224, 26);
             this.AboutMe.Text = "О программе";
             this.AboutMe.Click += new System.EventHandler(this.AboutMe_Click);
             // 
@@ -458,7 +457,6 @@
             // splitContainer1.Panel1
             // 
             this.splitContainer1.Panel1.Controls.Add(this.TabControl1);
-            this.splitContainer1.Panel1.Controls.Add(this.label1);
             // 
             // splitContainer1.Panel2
             // 
@@ -467,6 +465,21 @@
             this.splitContainer1.Size = new System.Drawing.Size(875, 698);
             this.splitContainer1.SplitterDistance = 474;
             this.splitContainer1.TabIndex = 15;
+            // 
+            // TabControl1
+            // 
+            this.TabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
+            | System.Windows.Forms.AnchorStyles.Left) 
+            | System.Windows.Forms.AnchorStyles.Right)));
+            this.TabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
+            this.TabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
+            this.TabControl1.Location = new System.Drawing.Point(7, 17);
+            this.TabControl1.Name = "TabControl1";
+            this.TabControl1.SelectedIndex = 0;
+            this.TabControl1.Size = new System.Drawing.Size(859, 454);
+            this.TabControl1.TabIndex = 23;
+            this.TabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.TabControl1_DrawItem);
+            this.TabControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TabControl1_MouseDown);
             // 
             // label2
             // 
@@ -477,16 +490,6 @@
             this.label2.Size = new System.Drawing.Size(80, 17);
             this.label2.TabIndex = 23;
             this.label2.Text = "Результат:";
-            // 
-            // label1
-            // 
-            this.label1.AutoSize = true;
-            this.label1.Location = new System.Drawing.Point(4, 0);
-            this.label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label1.Name = "label1";
-            this.label1.Size = new System.Drawing.Size(127, 17);
-            this.label1.TabIndex = 22;
-            this.label1.Text = "Текст программы:";
             // 
             // OutRTB
             // 
@@ -500,21 +503,6 @@
             this.OutRTB.Size = new System.Drawing.Size(862, 190);
             this.OutRTB.TabIndex = 21;
             this.OutRTB.Text = "";
-            // 
-            // TabControl1
-            // 
-            this.TabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
-            | System.Windows.Forms.AnchorStyles.Left) 
-            | System.Windows.Forms.AnchorStyles.Right)));
-            this.TabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
-            this.TabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
-            this.TabControl1.Location = new System.Drawing.Point(7, 21);
-            this.TabControl1.Name = "TabControl1";
-            this.TabControl1.SelectedIndex = 0;
-            this.TabControl1.Size = new System.Drawing.Size(859, 450);
-            this.TabControl1.TabIndex = 23;
-            this.TabControl1.DrawItem += new System.Windows.Forms.DrawItemEventHandler(this.TabControl1_DrawItem);
-            this.TabControl1.MouseDown += new System.Windows.Forms.MouseEventHandler(this.TabControl1_MouseDown);
             // 
             // Form1
             // 
@@ -539,7 +527,6 @@
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
-            this.splitContainer1.Panel1.PerformLayout();
             this.splitContainer1.Panel2.ResumeLayout(false);
             this.splitContainer1.Panel2.PerformLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).EndInit();
@@ -592,7 +579,6 @@
         private System.Windows.Forms.ToolStripMenuItem Save;
         private System.Windows.Forms.ToolStripMenuItem Copy;
         private System.Windows.Forms.SplitContainer splitContainer1;
-        private System.Windows.Forms.Label label1;
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RichTextBox OutRTB;
         private System.Windows.Forms.TabControl TabControl1;
