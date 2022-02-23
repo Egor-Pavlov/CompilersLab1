@@ -1,4 +1,4 @@
-﻿using System;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -15,6 +15,7 @@ namespace ProgLab15
         public circle(float x, float y, float r)
         {
             if (r <= 0) throw new ArgumentException("The radius cannot be less than 0", "Radius");
+            
             else radius = r;
             center_x = x;
             center_y = y;

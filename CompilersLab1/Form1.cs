@@ -66,24 +66,28 @@ namespace CompilersLab1
             TabControl1.TabPages.Add(myTabPage);
             //создаем поле для текста
             FastColoredTextBoxNS.FastColoredTextBox newtextBox = new FastColoredTextBoxNS.FastColoredTextBox();
-            if (format == "cs")
-                newtextBox.Language = FastColoredTextBoxNS.Language.CSharp;
+            //if (format == "cs")
+            //    newtextBox.Language = FastColoredTextBoxNS.Language.CSharp;
 
-            if (format == "html")
-                newtextBox.Language = FastColoredTextBoxNS.Language.HTML;
+            //if (format == "html")
+            //    newtextBox.Language = FastColoredTextBoxNS.Language.HTML;
 
-            if (format == "sql")
-                newtextBox.Language = FastColoredTextBoxNS.Language.SQL;
+            //if (format == "sql")
+            //    newtextBox.Language = FastColoredTextBoxNS.Language.SQL;
 
-            if (format == "js")
-                newtextBox.Language = FastColoredTextBoxNS.Language.JS;
+            //if (format == "js")
+            //    newtextBox.Language = FastColoredTextBoxNS.Language.JS;
 
             newtextBox.TextChanged += new EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(FCTB_textChanged);
-            
-            using (StreamReader sr = new StreamReader(filePath))
+            if(name != "")
             {
-                newtextBox.Text = sr.ReadToEnd();
+                using (StreamReader sr = new StreamReader(name))
+                {
+                    newtextBox.Text = sr.ReadToEnd();
+                }
             }
+
+            myTabPage.Text = title;
             //размеры поля
             newtextBox.Size = myTabPage.Size;
             
@@ -107,19 +111,22 @@ namespace CompilersLab1
         FastColoredTextBoxNS.Style RedStyle = new FastColoredTextBoxNS.TextStyle(Brushes.Red, null, FontStyle.Bold);
         FastColoredTextBoxNS.Style GreenStyle = new FastColoredTextBoxNS.TextStyle(Brushes.Green, null, FontStyle.Italic);
         FastColoredTextBoxNS.Style BlueStyle = new FastColoredTextBoxNS.TextStyle(Brushes.Blue, null, FontStyle.Regular);
-
+        FastColoredTextBoxNS.Style BoldStyle = new FastColoredTextBoxNS.TextStyle(Brushes.DeepPink, null, FontStyle.Bold);
+        FastColoredTextBoxNS.Style ConstStyle = new FastColoredTextBoxNS.TextStyle(Brushes.ForestGreen, null, FontStyle.Regular);
+        
         public void FCTB_textChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
         {
             if (TabControl1.SelectedTab.Text[0] != '*')
                 TabControl1.SelectedTab.Text = "*" + TabControl1.SelectedTab.Text;
 
             //очистить стиль в измененном блоке текста
-            e.ChangedRange.ClearStyle(RedStyle);
-            e.ChangedRange.ClearStyle(GreenStyle);
+            e.ChangedRange.ClearStyle(FastColoredTextBoxNS.StyleIndex.All);
 
             //подсветка нескольких слов через регулярное выражение
-            e.ChangedRange.SetStyle(RedStyle, @"(class|struct|enum)");
-            e.ChangedRange.SetStyle(BlueStyle, @"(int|double|string|bool|char|float|public|private|protected)");
+            e.ChangedRange.SetStyle(ConstStyle, @"(\s+[0-9]+(\.)?([\d])*)");
+            e.ChangedRange.SetStyle(RedStyle, @"(if|else|return)");
+            e.ChangedRange.SetStyle(BlueStyle, @"(\s+(class|struct|enum|int|double|string|bool|char|float|void|public|private|protected)\s+)");
+            e.ChangedRange.SetStyle(BoldStyle, @"\b((class|struct|enum)|(int|double|string|bool|char|float|void))\s+(?<range>[\w_]+?)\b");
             e.ChangedRange.SetStyle(GreenStyle, @"//.*$", RegexOptions.Multiline);
         }
        
