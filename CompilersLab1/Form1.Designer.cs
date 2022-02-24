@@ -73,6 +73,7 @@
             this.TabControl1 = new System.Windows.Forms.TabControl();
             this.label2 = new System.Windows.Forms.Label();
             this.OutRTB = new System.Windows.Forms.RichTextBox();
+            this.CloseThisTab = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -91,7 +92,7 @@
             this.Help});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(899, 27);
+            this.toolStrip1.Size = new System.Drawing.Size(899, 31);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -101,47 +102,48 @@
             this.toolStripDropDownButton1.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.New,
             this.Open,
+            this.CloseThisTab,
             this.Save,
             this.SaveAs,
             this.Exit});
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(59, 24);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(59, 28);
             this.toolStripDropDownButton1.Text = "Файл";
             // 
             // New
             // 
             this.New.Name = "New";
-            this.New.Size = new System.Drawing.Size(192, 26);
+            this.New.Size = new System.Drawing.Size(224, 26);
             this.New.Text = "Создать";
             this.New.Click += new System.EventHandler(this.New_Click);
             // 
             // Open
             // 
             this.Open.Name = "Open";
-            this.Open.Size = new System.Drawing.Size(192, 26);
+            this.Open.Size = new System.Drawing.Size(224, 26);
             this.Open.Text = "Открыть";
             this.Open.Click += new System.EventHandler(this.Open_Click);
             // 
             // Save
             // 
             this.Save.Name = "Save";
-            this.Save.Size = new System.Drawing.Size(192, 26);
+            this.Save.Size = new System.Drawing.Size(224, 26);
             this.Save.Text = "Сохранить";
             this.Save.Click += new System.EventHandler(this.Save_Click);
             // 
             // SaveAs
             // 
             this.SaveAs.Name = "SaveAs";
-            this.SaveAs.Size = new System.Drawing.Size(192, 26);
+            this.SaveAs.Size = new System.Drawing.Size(224, 26);
             this.SaveAs.Text = "Сохранить как";
             this.SaveAs.Click += new System.EventHandler(this.SaveAs_Click);
             // 
             // Exit
             // 
             this.Exit.Name = "Exit";
-            this.Exit.Size = new System.Drawing.Size(192, 26);
+            this.Exit.Size = new System.Drawing.Size(224, 26);
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
@@ -159,7 +161,7 @@
             this.Change.Image = ((System.Drawing.Image)(resources.GetObject("Change.Image")));
             this.Change.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Change.Name = "Change";
-            this.Change.Size = new System.Drawing.Size(74, 24);
+            this.Change.Size = new System.Drawing.Size(74, 28);
             this.Change.Text = "Правка";
             // 
             // Cancel
@@ -226,7 +228,7 @@
             this.Text.Image = ((System.Drawing.Image)(resources.GetObject("Text.Image")));
             this.Text.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Text.Name = "Text";
-            this.Text.Size = new System.Drawing.Size(59, 24);
+            this.Text.Size = new System.Drawing.Size(59, 28);
             this.Text.Text = "Текст";
             // 
             // ProblemStatement
@@ -283,8 +285,8 @@
             this.Start.Image = ((System.Drawing.Image)(resources.GetObject("Start.Image")));
             this.Start.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Start.Name = "Start";
-            this.Start.Size = new System.Drawing.Size(45, 24);
-            this.Start.Text = "Пукс";
+            this.Start.Size = new System.Drawing.Size(45, 28);
+            this.Start.Text = "Пуcк";
             // 
             // Help
             // 
@@ -295,20 +297,20 @@
             this.Help.Image = ((System.Drawing.Image)(resources.GetObject("Help.Image")));
             this.Help.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Help.Name = "Help";
-            this.Help.Size = new System.Drawing.Size(83, 24);
+            this.Help.Size = new System.Drawing.Size(83, 28);
             this.Help.Text = "Помощь";
             // 
             // Info
             // 
             this.Info.Name = "Info";
-            this.Info.Size = new System.Drawing.Size(224, 26);
+            this.Info.Size = new System.Drawing.Size(187, 26);
             this.Info.Text = "Справка";
             this.Info.Click += new System.EventHandler(this.Info_Click);
             // 
             // AboutMe
             // 
             this.AboutMe.Name = "AboutMe";
-            this.AboutMe.Size = new System.Drawing.Size(224, 26);
+            this.AboutMe.Size = new System.Drawing.Size(187, 26);
             this.AboutMe.Text = "О программе";
             this.AboutMe.Click += new System.EventHandler(this.AboutMe_Click);
             // 
@@ -504,6 +506,13 @@
             this.OutRTB.TabIndex = 21;
             this.OutRTB.Text = "";
             // 
+            // CloseThisTab
+            // 
+            this.CloseThisTab.Name = "CloseThisTab";
+            this.CloseThisTab.Size = new System.Drawing.Size(224, 26);
+            this.CloseThisTab.Text = "Закрыть";
+            this.CloseThisTab.Click += new System.EventHandler(this.CloseThisTab_Click);
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
@@ -582,6 +591,7 @@
         private System.Windows.Forms.Label label2;
         private System.Windows.Forms.RichTextBox OutRTB;
         private System.Windows.Forms.TabControl TabControl1;
+        private System.Windows.Forms.ToolStripMenuItem CloseThisTab;
     }
 }
 

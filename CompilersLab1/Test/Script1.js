@@ -31,7 +31,7 @@ function ReDraw(end = false, search = false, index = 0) {
     ctx.clearRect(0, 0, chart.clientWidth, chart.clientHeight);
 
     // ���������� ���� � ������������ ��� ������� ������ � ������
-    var step = chart.clientWidth / arr.length;
+    var step  = cha  rt.clientWidth / arr.length;
     var coeff = Math.max.apply(null, arr) / chart.clientHeight;
 
     // ������������� ����

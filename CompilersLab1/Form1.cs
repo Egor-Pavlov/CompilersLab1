@@ -10,6 +10,7 @@ using System.Windows.Forms;
 using System.IO;
 using System.Text.RegularExpressions;
 using System.Windows;
+using System.Diagnostics;
 
 namespace CompilersLab1
 {
@@ -17,7 +18,7 @@ namespace CompilersLab1
     {
         string filePath = "";
         //крестик для кнопок
-        public string closeButtonFullPath = @"C:\Users\Егор\source\repos\CompilersLab1\X.png";
+        public string closeButtonFullPath = @"..\..\X.png";
         public Form1()
         {
             InitializeComponent();
@@ -66,33 +67,29 @@ namespace CompilersLab1
             TabControl1.TabPages.Add(myTabPage);
             //создаем поле для текста
             FastColoredTextBoxNS.FastColoredTextBox newtextBox = new FastColoredTextBoxNS.FastColoredTextBox();
-            //if (format == "cs")
-            //    newtextBox.Language = FastColoredTextBoxNS.Language.CSharp;
+            if (format == "cs")
+                newtextBox.Language = FastColoredTextBoxNS.Language.CSharp;
 
-            //if (format == "html")
-            //    newtextBox.Language = FastColoredTextBoxNS.Language.HTML;
+            if (format == "html")
+                newtextBox.Language = FastColoredTextBoxNS.Language.HTML;
 
-            //if (format == "sql")
-            //    newtextBox.Language = FastColoredTextBoxNS.Language.SQL;
+            if (format == "sql")
+                newtextBox.Language = FastColoredTextBoxNS.Language.SQL;
 
-            //if (format == "js")
-            //    newtextBox.Language = FastColoredTextBoxNS.Language.JS;
+            if (format == "js")
+                newtextBox.Language = FastColoredTextBoxNS.Language.JS;
+
+            //else newtextBox.Language = FastColoredTextBoxNS.Language.Custom;
 
             newtextBox.TextChanged += new EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(FCTB_textChanged);
-            if(name != "")
-            {
-                using (StreamReader sr = new StreamReader(name))
-                {
-                    newtextBox.Text = sr.ReadToEnd();
-                }
-            }
+            
 
-            myTabPage.Text = title;
             //размеры поля
             newtextBox.Size = myTabPage.Size;
             
             //засовываем поле во вкладку
             TabControl1.TabPages[TabControl1.TabPages.Count - 1].Controls.Add(newtextBox);
+            
             //привязываем поле к границам вкладки
             TabControl1.TabPages[TabControl1.TabPages.Count - 1].Controls[0].Anchor = AnchorStyles.Top | AnchorStyles.Bottom
                 | AnchorStyles.Left | AnchorStyles.Right;
@@ -106,8 +103,18 @@ namespace CompilersLab1
             menuStrip.Items.AddRange(new[] { path });
             //присваиваем вкладке созданное меню
             TabControl1.SelectedTab.ContextMenuStrip = menuStrip;
-            
+
+            //читаем текст
+            if (name != "")
+            {
+                using (StreamReader sr = new StreamReader(name))
+                {
+                    newtextBox.Text = sr.ReadToEnd();
+                }
+            }
+            myTabPage.Text = title;
         }
+        //стили текста для оформления
         FastColoredTextBoxNS.Style RedStyle = new FastColoredTextBoxNS.TextStyle(Brushes.Red, null, FontStyle.Bold);
         FastColoredTextBoxNS.Style GreenStyle = new FastColoredTextBoxNS.TextStyle(Brushes.Green, null, FontStyle.Italic);
         FastColoredTextBoxNS.Style BlueStyle = new FastColoredTextBoxNS.TextStyle(Brushes.Blue, null, FontStyle.Regular);
@@ -118,16 +125,21 @@ namespace CompilersLab1
         {
             if (TabControl1.SelectedTab.Text[0] != '*')
                 TabControl1.SelectedTab.Text = "*" + TabControl1.SelectedTab.Text;
+            
+            FastColoredTextBoxNS.FastColoredTextBox tb = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
 
-            //очистить стиль в измененном блоке текста
-            e.ChangedRange.ClearStyle(FastColoredTextBoxNS.StyleIndex.All);
+            if (tb.Language == FastColoredTextBoxNS.Language.Custom)
+            {
+                //очистить стиль в измененном блоке текста
+                e.ChangedRange.ClearStyle(FastColoredTextBoxNS.StyleIndex.All);
 
-            //подсветка нескольких слов через регулярное выражение
-            e.ChangedRange.SetStyle(ConstStyle, @"(\s+[0-9]+(\.)?([\d])*)");
-            e.ChangedRange.SetStyle(RedStyle, @"(if|else|return)");
-            e.ChangedRange.SetStyle(BlueStyle, @"(\s+(class|struct|enum|int|double|string|bool|char|float|void|public|private|protected)\s+)");
-            e.ChangedRange.SetStyle(BoldStyle, @"\b((class|struct|enum)|(int|double|string|bool|char|float|void))\s+(?<range>[\w_]+?)\b");
-            e.ChangedRange.SetStyle(GreenStyle, @"//.*$", RegexOptions.Multiline);
+                //подсветка нескольких слов через регулярное выражение
+                e.ChangedRange.SetStyle(ConstStyle, @"(\s+[0-9]+(\.)?([\d])*)");
+                e.ChangedRange.SetStyle(RedStyle, @"(if|else|return)");
+                e.ChangedRange.SetStyle(BlueStyle, @"(\s+(class|struct|var|new|enum|int|double|string|bool|char|float|void|public|private|protected)\s+)");
+                e.ChangedRange.SetStyle(BoldStyle, @"\b((class|struct|enum)|(int|double|string|bool|char|float|void))\s+(?<range>[\w_]+?)\b");
+                e.ChangedRange.SetStyle(GreenStyle, @"//.*$", RegexOptions.Multiline);
+            }
         }
        
         void NewFileFunc()
@@ -285,23 +297,24 @@ namespace CompilersLab1
 
         private void HelpButt_Click(object sender, EventArgs e)
         {
-            string path = "help.txt";
-
-            using (StreamReader sr = new StreamReader(path))
-                MessageBox.Show(sr.ReadToEnd(), "Справка:", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            Info_Click(null, null);
         }
 
         private void Info_Click(object sender, EventArgs e)
         {
-            string path = "help.txt";
-
-            using (StreamReader sr = new StreamReader(path))
-                MessageBox.Show(sr.ReadToEnd(), "Справка:", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                Process.Start(@"..\..\..\info\help.html");
+            }
+            catch
+            {
+                MessageBox.Show("Невозможно открыть справку :(", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void AboutMe_Click(object sender, EventArgs e)
         {
-            string path = "aboutme.txt";
+            string path = @"..\..\..\info\aboutme.txt";
 
             using (StreamReader sr = new StreamReader(path))
                 MessageBox.Show(sr.ReadToEnd(), "О программе:", MessageBoxButtons.OK, MessageBoxIcon.Information);
@@ -365,5 +378,22 @@ namespace CompilersLab1
             }
         }
 
+        private void CloseThisTab_Click(object sender, EventArgs e)
+        {
+            //предлагаем сохранить
+            if (TabControl1.SelectedTab.Text[0] == '*')
+            {
+                DialogResult result = MessageBox.Show(
+                    "Сохранить файл " + TabControl1.SelectedTab.Text.Replace("*", "").Replace(" ", "") + " перед закрытием?",
+                    "Сообщение",
+                    MessageBoxButtons.YesNo,
+                    MessageBoxIcon.Question,
+                    MessageBoxDefaultButton.Button1,
+                    MessageBoxOptions.DefaultDesktopOnly);
+                if (result == DialogResult.Yes)
+                    SaveFunc();
+            }
+            this.TabControl1.TabPages.RemoveAt(TabControl1.TabPages.IndexOf(TabControl1.SelectedTab));
+        }
     }
 }

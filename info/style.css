@@ -1,0 +1,16 @@
+.image {
+    display: block;
+    margin-right: auto;
+    margin-left: auto;
+    margin: auto;
+}
+.image-text
+{
+    text-align: center;
+}
+.container{
+    text-align: center;
+}
+body {
+    font-family: 'Oswald', sans-serif;
+}
