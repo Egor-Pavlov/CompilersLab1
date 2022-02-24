@@ -22,6 +22,7 @@ namespace CompilersLab1
         public Form1()
         {
             InitializeComponent();
+            //saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             this.FormClosing += Exit_Click;
         }
 
@@ -49,7 +50,6 @@ namespace CompilersLab1
                 if (openFileDialog1.FileName != "")
                     filePath = openFileDialog1.FileName;
                 NewPageFunc(filePath);
-
                 OutRTB.Text = "";
             }
         }
@@ -58,11 +58,12 @@ namespace CompilersLab1
             string title;
             string format = Path.GetFileName(name).Split('.').Last();
             if (name == "")
-                title = "newFile" + (TabControl1.TabCount + 1).ToString();
+                title = "newFile" + (TabControl1.TabCount + 1).ToString() + "     ";
             else
                 title = Path.GetFileName(name) + "     ";
             //создаем объект вкладки
             TabPage myTabPage = new TabPage(title);
+            myTabPage.Font = new Font("San Serif", 8, FontStyle.Regular); ;
             //пихаем в таб контрол
             TabControl1.TabPages.Add(myTabPage);
             //создаем поле для текста
@@ -70,20 +71,17 @@ namespace CompilersLab1
             if (format == "cs")
                 newtextBox.Language = FastColoredTextBoxNS.Language.CSharp;
 
-            if (format == "html")
+            else if (format == "html")
                 newtextBox.Language = FastColoredTextBoxNS.Language.HTML;
 
-            if (format == "sql")
+            else if (format == "sql")
                 newtextBox.Language = FastColoredTextBoxNS.Language.SQL;
 
-            if (format == "js")
+            else if (format == "js")
                 newtextBox.Language = FastColoredTextBoxNS.Language.JS;
-
-            //else newtextBox.Language = FastColoredTextBoxNS.Language.Custom;
 
             newtextBox.TextChanged += new EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(FCTB_textChanged);
             
-
             //размеры поля
             newtextBox.Size = myTabPage.Size;
             
@@ -141,7 +139,6 @@ namespace CompilersLab1
                 e.ChangedRange.SetStyle(GreenStyle, @"//.*$", RegexOptions.Multiline);
             }
         }
-       
         void NewFileFunc()
         {
             OutRTB.Text = "";

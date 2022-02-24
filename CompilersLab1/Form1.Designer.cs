@@ -33,6 +33,7 @@
             this.toolStripDropDownButton1 = new System.Windows.Forms.ToolStripDropDownButton();
             this.New = new System.Windows.Forms.ToolStripMenuItem();
             this.Open = new System.Windows.Forms.ToolStripMenuItem();
+            this.CloseThisTab = new System.Windows.Forms.ToolStripMenuItem();
             this.Save = new System.Windows.Forms.ToolStripMenuItem();
             this.SaveAs = new System.Windows.Forms.ToolStripMenuItem();
             this.Exit = new System.Windows.Forms.ToolStripMenuItem();
@@ -44,7 +45,7 @@
             this.Push = new System.Windows.Forms.ToolStripMenuItem();
             this.Delete = new System.Windows.Forms.ToolStripMenuItem();
             this.SelectAll = new System.Windows.Forms.ToolStripMenuItem();
-            this.Text = new System.Windows.Forms.ToolStripDropDownButton();
+            this.TextBttn = new System.Windows.Forms.ToolStripDropDownButton();
             this.ProblemStatement = new System.Windows.Forms.ToolStripMenuItem();
             this.Grammar = new System.Windows.Forms.ToolStripMenuItem();
             this.GrammarClassification = new System.Windows.Forms.ToolStripMenuItem();
@@ -73,7 +74,6 @@
             this.TabControl1 = new System.Windows.Forms.TabControl();
             this.label2 = new System.Windows.Forms.Label();
             this.OutRTB = new System.Windows.Forms.RichTextBox();
-            this.CloseThisTab = new System.Windows.Forms.ToolStripMenuItem();
             this.toolStrip1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.splitContainer1)).BeginInit();
             this.splitContainer1.Panel1.SuspendLayout();
@@ -83,16 +83,17 @@
             // 
             // toolStrip1
             // 
+            this.toolStrip1.Font = new System.Drawing.Font("Segoe UI", 9F, System.Drawing.FontStyle.Regular, System.Drawing.GraphicsUnit.Point, ((byte)(204)));
             this.toolStrip1.ImageScalingSize = new System.Drawing.Size(20, 20);
             this.toolStrip1.Items.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.toolStripDropDownButton1,
             this.Change,
-            this.Text,
+            this.TextBttn,
             this.Start,
             this.Help});
             this.toolStrip1.Location = new System.Drawing.Point(0, 0);
             this.toolStrip1.Name = "toolStrip1";
-            this.toolStrip1.Size = new System.Drawing.Size(899, 31);
+            this.toolStrip1.Size = new System.Drawing.Size(899, 27);
             this.toolStrip1.TabIndex = 0;
             this.toolStrip1.Text = "toolStrip1";
             // 
@@ -109,41 +110,48 @@
             this.toolStripDropDownButton1.Image = ((System.Drawing.Image)(resources.GetObject("toolStripDropDownButton1.Image")));
             this.toolStripDropDownButton1.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.toolStripDropDownButton1.Name = "toolStripDropDownButton1";
-            this.toolStripDropDownButton1.Size = new System.Drawing.Size(59, 28);
+            this.toolStripDropDownButton1.Size = new System.Drawing.Size(59, 24);
             this.toolStripDropDownButton1.Text = "Файл";
             // 
             // New
             // 
             this.New.Name = "New";
-            this.New.Size = new System.Drawing.Size(224, 26);
+            this.New.Size = new System.Drawing.Size(192, 26);
             this.New.Text = "Создать";
             this.New.Click += new System.EventHandler(this.New_Click);
             // 
             // Open
             // 
             this.Open.Name = "Open";
-            this.Open.Size = new System.Drawing.Size(224, 26);
+            this.Open.Size = new System.Drawing.Size(192, 26);
             this.Open.Text = "Открыть";
             this.Open.Click += new System.EventHandler(this.Open_Click);
+            // 
+            // CloseThisTab
+            // 
+            this.CloseThisTab.Name = "CloseThisTab";
+            this.CloseThisTab.Size = new System.Drawing.Size(192, 26);
+            this.CloseThisTab.Text = "Закрыть";
+            this.CloseThisTab.Click += new System.EventHandler(this.CloseThisTab_Click);
             // 
             // Save
             // 
             this.Save.Name = "Save";
-            this.Save.Size = new System.Drawing.Size(224, 26);
+            this.Save.Size = new System.Drawing.Size(192, 26);
             this.Save.Text = "Сохранить";
             this.Save.Click += new System.EventHandler(this.Save_Click);
             // 
             // SaveAs
             // 
             this.SaveAs.Name = "SaveAs";
-            this.SaveAs.Size = new System.Drawing.Size(224, 26);
+            this.SaveAs.Size = new System.Drawing.Size(192, 26);
             this.SaveAs.Text = "Сохранить как";
             this.SaveAs.Click += new System.EventHandler(this.SaveAs_Click);
             // 
             // Exit
             // 
             this.Exit.Name = "Exit";
-            this.Exit.Size = new System.Drawing.Size(224, 26);
+            this.Exit.Size = new System.Drawing.Size(192, 26);
             this.Exit.Text = "Выход";
             this.Exit.Click += new System.EventHandler(this.Exit_Click);
             // 
@@ -213,10 +221,10 @@
             this.SelectAll.Text = "Выделить все ";
             this.SelectAll.Click += new System.EventHandler(this.SelectAll_Click);
             // 
-            // Text
+            // TextBttn
             // 
-            this.Text.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
-            this.Text.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
+            this.TextBttn.DisplayStyle = System.Windows.Forms.ToolStripItemDisplayStyle.Text;
+            this.TextBttn.DropDownItems.AddRange(new System.Windows.Forms.ToolStripItem[] {
             this.ProblemStatement,
             this.Grammar,
             this.GrammarClassification,
@@ -225,11 +233,11 @@
             this.Example,
             this.Liter,
             this.Source});
-            this.Text.Image = ((System.Drawing.Image)(resources.GetObject("Text.Image")));
-            this.Text.ImageTransparentColor = System.Drawing.Color.Magenta;
-            this.Text.Name = "Text";
-            this.Text.Size = new System.Drawing.Size(59, 28);
-            this.Text.Text = "Текст";
+            this.TextBttn.Image = ((System.Drawing.Image)(resources.GetObject("TextBttn.Image")));
+            this.TextBttn.ImageTransparentColor = System.Drawing.Color.Magenta;
+            this.TextBttn.Name = "TextBttn";
+            this.TextBttn.Size = new System.Drawing.Size(59, 28);
+            this.TextBttn.Text = "Текст";
             // 
             // ProblemStatement
             // 
@@ -473,7 +481,6 @@
             this.TabControl1.Anchor = ((System.Windows.Forms.AnchorStyles)((((System.Windows.Forms.AnchorStyles.Top | System.Windows.Forms.AnchorStyles.Bottom) 
             | System.Windows.Forms.AnchorStyles.Left) 
             | System.Windows.Forms.AnchorStyles.Right)));
-            this.TabControl1.Appearance = System.Windows.Forms.TabAppearance.Buttons;
             this.TabControl1.DrawMode = System.Windows.Forms.TabDrawMode.OwnerDrawFixed;
             this.TabControl1.Location = new System.Drawing.Point(7, 17);
             this.TabControl1.Name = "TabControl1";
@@ -506,17 +513,9 @@
             this.OutRTB.TabIndex = 21;
             this.OutRTB.Text = "";
             // 
-            // CloseThisTab
-            // 
-            this.CloseThisTab.Name = "CloseThisTab";
-            this.CloseThisTab.Size = new System.Drawing.Size(224, 26);
-            this.CloseThisTab.Text = "Закрыть";
-            this.CloseThisTab.Click += new System.EventHandler(this.CloseThisTab_Click);
-            // 
             // Form1
             // 
-            this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 16F);
-            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.None;
             this.ClientSize = new System.Drawing.Size(899, 808);
             this.Controls.Add(this.splitContainer1);
             this.Controls.Add(this.HelpButt);
@@ -533,6 +532,7 @@
             this.Margin = new System.Windows.Forms.Padding(4);
             this.MinimumSize = new System.Drawing.Size(906, 591);
             this.Name = "Form1";
+            this.Text = "Компилятор";
             this.toolStrip1.ResumeLayout(false);
             this.toolStrip1.PerformLayout();
             this.splitContainer1.Panel1.ResumeLayout(false);
@@ -556,7 +556,7 @@
         private System.Windows.Forms.ToolStripDropDownButton Change;
         private System.Windows.Forms.ToolStripMenuItem Cancel;
         private System.Windows.Forms.ToolStripMenuItem Repeat;
-        private System.Windows.Forms.ToolStripDropDownButton Text;
+        private System.Windows.Forms.ToolStripDropDownButton TextBttn;
         private System.Windows.Forms.ToolStripButton Start;
         private System.Windows.Forms.ToolStripMenuItem Cut;
         private System.Windows.Forms.ToolStripMenuItem Push;
