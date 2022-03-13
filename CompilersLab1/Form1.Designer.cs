@@ -169,7 +169,7 @@
             this.Change.Image = ((System.Drawing.Image)(resources.GetObject("Change.Image")));
             this.Change.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Change.Name = "Change";
-            this.Change.Size = new System.Drawing.Size(74, 28);
+            this.Change.Size = new System.Drawing.Size(74, 24);
             this.Change.Text = "Правка";
             // 
             // Cancel
@@ -236,7 +236,7 @@
             this.TextBttn.Image = ((System.Drawing.Image)(resources.GetObject("TextBttn.Image")));
             this.TextBttn.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.TextBttn.Name = "TextBttn";
-            this.TextBttn.Size = new System.Drawing.Size(59, 28);
+            this.TextBttn.Size = new System.Drawing.Size(59, 24);
             this.TextBttn.Text = "Текст";
             // 
             // ProblemStatement
@@ -293,8 +293,9 @@
             this.Start.Image = ((System.Drawing.Image)(resources.GetObject("Start.Image")));
             this.Start.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Start.Name = "Start";
-            this.Start.Size = new System.Drawing.Size(45, 28);
+            this.Start.Size = new System.Drawing.Size(45, 24);
             this.Start.Text = "Пуcк";
+            this.Start.Click += new System.EventHandler(this.Start_Click);
             // 
             // Help
             // 
@@ -305,7 +306,7 @@
             this.Help.Image = ((System.Drawing.Image)(resources.GetObject("Help.Image")));
             this.Help.ImageTransparentColor = System.Drawing.Color.Magenta;
             this.Help.Name = "Help";
-            this.Help.Size = new System.Drawing.Size(83, 28);
+            this.Help.Size = new System.Drawing.Size(83, 24);
             this.Help.Text = "Помощь";
             // 
             // Info
@@ -333,6 +334,7 @@
             this.StartButt.Size = new System.Drawing.Size(72, 60);
             this.StartButt.TabIndex = 13;
             this.StartButt.UseVisualStyleBackColor = false;
+            this.StartButt.Click += new System.EventHandler(this.StartButt_Click);
             // 
             // PasteButt
             // 

@@ -392,5 +392,17 @@ namespace CompilersLab1
             }
             this.TabControl1.TabPages.RemoveAt(TabControl1.TabPages.IndexOf(TabControl1.SelectedTab));
         }
+
+        private void StartButt_Click(object sender, EventArgs e)
+        {
+            Start_Click(null, null);
+        }
+
+        private void Start_Click(object sender, EventArgs e)
+        {
+            Scaner s = new Scaner(TabControl1.SelectedTab.Controls[0].Text);
+            s.Scan();
+            OutRTB.Text = s.GetResult();
+        }
     }
 }
