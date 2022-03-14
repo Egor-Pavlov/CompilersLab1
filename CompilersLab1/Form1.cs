@@ -28,7 +28,7 @@ namespace CompilersLab1
 
         private void Exit_Click(object sender, EventArgs e)
         {
-            for (int i = TabControl1.TabPages.Count -1; i >= 0; i--)
+            for (int i = TabControl1.TabPages.Count - 1; i >= 0; i--)
             {
                 if (TabControl1.TabPages[i].Text[0] == '*')
                 {
@@ -81,13 +81,13 @@ namespace CompilersLab1
                 newtextBox.Language = FastColoredTextBoxNS.Language.JS;
 
             newtextBox.TextChanged += new EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(FCTB_textChanged);
-            
+
             //размеры поля
             newtextBox.Size = myTabPage.Size;
-            
+
             //засовываем поле во вкладку
             TabControl1.TabPages[TabControl1.TabPages.Count - 1].Controls.Add(newtextBox);
-            
+
             //привязываем поле к границам вкладки
             TabControl1.TabPages[TabControl1.TabPages.Count - 1].Controls[0].Anchor = AnchorStyles.Top | AnchorStyles.Bottom
                 | AnchorStyles.Left | AnchorStyles.Right;
@@ -118,12 +118,12 @@ namespace CompilersLab1
         FastColoredTextBoxNS.Style BlueStyle = new FastColoredTextBoxNS.TextStyle(Brushes.Blue, null, FontStyle.Regular);
         FastColoredTextBoxNS.Style BoldStyle = new FastColoredTextBoxNS.TextStyle(Brushes.DeepPink, null, FontStyle.Bold);
         FastColoredTextBoxNS.Style ConstStyle = new FastColoredTextBoxNS.TextStyle(Brushes.ForestGreen, null, FontStyle.Regular);
-        
+
         public void FCTB_textChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
         {
             if (TabControl1.SelectedTab.Text[0] != '*')
                 TabControl1.SelectedTab.Text = "*" + TabControl1.SelectedTab.Text;
-            
+
             FastColoredTextBoxNS.FastColoredTextBox tb = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
 
             if (tb.Language == FastColoredTextBoxNS.Language.Custom)
@@ -400,9 +400,21 @@ namespace CompilersLab1
 
         private void Start_Click(object sender, EventArgs e)
         {
-            Scaner s = new Scaner(TabControl1.SelectedTab.Controls[0].Text);
-            s.Scan();
-            OutRTB.Text = s.GetResult();
+            if (TabControl1.SelectedTab == null)
+            {
+                MessageBox.Show("Не выбран файл для компиляции", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                return;
+            }
+            try
+            {
+                Scaner s = new Scaner(TabControl1.SelectedTab.Controls[0].Text);
+                s.Scan();
+                OutRTB.Text = s.GetResult();
+            }
+            catch
+            {
+                OutRTB.Text = "Error: Invalid user :(";
+            }
         }
     }
 }

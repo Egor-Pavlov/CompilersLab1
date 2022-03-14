@@ -30,7 +30,7 @@ namespace CompilersLab1
         List<Lexem> lexems = new List<Lexem>();
         public Scaner(string Text)
         {
-            this.Text = Text;
+            this.Text = Text.Replace("\r", "");
         }
         public string GetResult()
         {
@@ -424,7 +424,8 @@ namespace CompilersLab1
             string str = "";
             int start = i;
             Lexem l = null;
-
+            
+            
             //если следующий символ подходит, то записываем его в строку
             while (Char.IsDigit(Text[i]))
             {
@@ -432,9 +433,17 @@ namespace CompilersLab1
                 i++;
             }
             int a;
+            
             if (int.TryParse(str, out a))
             {
-                l = new Lexem(Codes.Integer, str, start);
+                if (start != 0)
+                {
+                    if (Text[start - 1] == '\n' || Text[start - 1] == ' ')
+                    {
+                        l = new Lexem(Codes.Integer, str, start);
+                    }
+                }
+                else l = new Lexem(Codes.Integer, str, start);
             }
             else l = new Lexem(Codes.Error, str, start);
 
