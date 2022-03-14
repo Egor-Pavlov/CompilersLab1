@@ -20,8 +20,8 @@ namespace CompilersLab1
         }
         public string GetInfo()
         {
-            return Convert.ToInt32(Code).ToString() + " - " + Code.ToString() + " - " + Text +
-                " - начальная позиция: " + StartPosition.ToString() + "; конечная позиция: " + (StartPosition + Text.Length - 1).ToString();
+            return Convert.ToInt32(Code).ToString() + " - " + Code.ToString() + " - \"" + Text +
+                "\" - начальная позиция: " + StartPosition.ToString() + "; конечная позиция: " + (StartPosition + Text.Length - 1).ToString();
         }
     }
 }
