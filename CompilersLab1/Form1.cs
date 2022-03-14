@@ -118,6 +118,7 @@ namespace CompilersLab1
         FastColoredTextBoxNS.Style BlueStyle = new FastColoredTextBoxNS.TextStyle(Brushes.Blue, null, FontStyle.Regular);
         FastColoredTextBoxNS.Style BoldStyle = new FastColoredTextBoxNS.TextStyle(Brushes.DeepPink, null, FontStyle.Bold);
         FastColoredTextBoxNS.Style ConstStyle = new FastColoredTextBoxNS.TextStyle(Brushes.ForestGreen, null, FontStyle.Regular);
+        FastColoredTextBoxNS.Style OrangeStyle = new FastColoredTextBoxNS.TextStyle(Brushes.Orange, null, FontStyle.Regular);
 
         public void FCTB_textChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
         {
@@ -133,10 +134,15 @@ namespace CompilersLab1
 
                 //подсветка нескольких слов через регулярное выражение
                 e.ChangedRange.SetStyle(ConstStyle, @"(\s+[0-9]+(\.)?([\d])*)");
-                e.ChangedRange.SetStyle(RedStyle, @"(if|else|return)");
-                e.ChangedRange.SetStyle(BlueStyle, @"(\s+(class|struct|var|new|enum|int|double|string|bool|char|float|void|public|private|protected)\s+)");
-                e.ChangedRange.SetStyle(BoldStyle, @"\b((class|struct|enum)|(int|double|string|bool|char|float|void))\s+(?<range>[\w_]+?)\b");
-                e.ChangedRange.SetStyle(GreenStyle, @"//.*$", RegexOptions.Multiline);
+                e.ChangedRange.SetStyle(RedStyle, @"(True|False|echo|NULL)");
+                e.ChangedRange.SetStyle(BlueStyle, @"\$\w+");
+                e.ChangedRange.SetStyle(OrangeStyle, "\".+\"");
+                e.ChangedRange.SetStyle(GreenStyle, "<!--.+-->");
+                e.ChangedRange.SetStyle(GreenStyle, @"/*.+\*/");
+
+                //e.ChangedRange.SetStyle(BlueStyle, @"(\s+(class|struct|var|new|enum|int|double|string|bool|char|float|void|public|private|protected)\s+)");
+                //e.ChangedRange.SetStyle(BoldStyle, @"\b((class|struct|enum)|(int|double|string|bool|char|float|void))\s+(?<range>[\w_]+?)\b");
+                //e.ChangedRange.SetStyle(GreenStyle, @"//.*$", RegexOptions.Multiline);
             }
         }
         void NewFileFunc()
@@ -152,7 +158,7 @@ namespace CompilersLab1
                 {
                     System.IO.File.WriteAllText(TabControl1.SelectedTab.ContextMenuStrip.Items[0].Text, TabControl1.SelectedTab.Controls[0].Text);
                     //убираем значок несохраненного файла
-                    TabControl1.SelectedTab.Text.Replace("*", "");
+                    TabControl1.SelectedTab.Text = TabControl1.SelectedTab.Text.Replace("*", "");
                 }
                 catch
                 {
