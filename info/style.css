@@ -10,6 +10,39 @@
 }
 .container{
     text-align: center;
+    font-family: 'Oswald', sans-serif;
+}
+.container2{
+    font-family: 'Oswald', sans-serif;
+    text-align: justify;
+    display: block; 
+
+    margin-left: 40%;
+}
+/* внешние границы таблицы серого цвета толщиной 1px */
+table {
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+    
+    border: 1px grey;
+    text-align: center;
+    margin-left: 40%; 
+ }
+ /* границы ячеек первого ряда таблицы */
+ th {
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+    
+    border: 1px grey;
+ }
+ /* границы ячеек тела таблицы */
+ td {
+    font-family: 'Oswald', sans-serif;
+    text-align: center;
+    
+    border: 1px grey;
+ }
+
 }
 body {
     font-family: 'Oswald', sans-serif;

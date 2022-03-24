@@ -408,14 +408,17 @@ namespace CompilersLab1
         {
             if (TabControl1.SelectedTab == null)
             {
-                MessageBox.Show("Не выбран файл для компиляции", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+                MessageBox.Show("Не выбран файл для обработки", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
                 return;
             }
             try
             {
-                Scaner s = new Scaner(TabControl1.SelectedTab.Controls[0].Text);
-                s.Scan();
-                OutRTB.Text = s.GetResult();
+                //Scaner s = new Scaner(TabControl1.SelectedTab.Controls[0].Text);
+                //s.Scan();
+                //OutRTB.Text = s.GetResult();
+                StateMachine stateMachine = new StateMachine(TabControl1.SelectedTab.Controls[0].Text);
+                stateMachine.Start();
+                OutRTB.Text = stateMachine.Result;
             }
             catch
             {

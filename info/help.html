@@ -33,5 +33,74 @@
         <br>
         <img class="image" src="htmlJPEGS/scheme.png">
         <br>
+        <br> <div class = "container"> Конечный автомат:</div>
+        <br>
+        <img class="image" src="htmlJPEGS/StateMachine.png">
+        <br>
+        <br> <div class = "container"> Состояние и переходы графа состояний автомата (4 лаба): </div>
+        <div class = "container2"> 
+            <br>a - пополнение карты
+            <br>b - отмена пополнения
+            <br>c - внесение наличных
+            <br>d - проверка суммы
+            <br>e - выбор операции оплаты анкеты
+            <br>f - отмена оплаты
+            <br>g - возврат денег
+            <br>h - возврат в исходное состояние
+            <br>i - выбор действия со сдачей (если требуется)
+            <br>j - зачисление сдачи на телефон
+            <br>k - выдача сдачи наличными
+            <br>l - проведение оплаты
+            <br>m - сдача не требуется
+            <br>n - отмена оплаты
+            <br>o - отмена оплаты
+            <br>
+            <br>0 - исходное состояние
+            <br>1 - состояние готовности к пополнению карты
+            <br>2 - прием денег
+            <br>3 - сумма для пополнения внесена
+            <br>4 - деньги внесены
+            <br>5 - готовность к оплате анкеты
+            <br>6 - прием денег
+            <br>7 - сумма для анкеты набрана
+            <br>8 - выбрано действие со сдачей
+            <br>9 - сдача выдана
+            <br>10 - оплата выполнена
+        </div>
+        <br>
+        <div class = "container"> Таблица состояний и переходов:</div>
+            <table>
+            <tr><th>Текущее состояние</th><th>Символ</th><th>Новое состояние</th></tr>
+            <tr><td>0</td><td>a</td><td>1</td></tr>
+            <tr><td>0</td><td>e</td><td>5</td></tr>
+            <tr><td>1</td><td>b</td><td>0</td></tr>
+            <tr><td>1</td><td>c</td><td>2</td></tr>
+            <tr><td>2</td><td>c</td><td>2</td></tr>
+            <tr><td>2</td><td>d</td><td>3</td></tr>
+            <tr><td>3</td><td>n</td><td>2</td></tr>
+            <tr><td>3</td><td>o</td><td>4</td></tr>
+            <tr><td>4</td><td>h</td><td>0</td></tr>
+            <tr><td>5</td><td>c</td><td>6</td></tr>
+            <tr><td>5</td><td>f</td><td>0</td></tr>
+            <tr><td>6</td><td>c</td><td>6</td></tr>
+            <tr><td>6</td><td>d</td><td>7</td></tr>
+            <tr><td>6</td><td>g</td><td>8</td></tr>
+            <tr><td>7</td><td>n</td><td>6</td></tr>
+            <tr><td>7</td><td>m</td><td>9</td></tr>
+            <tr><td>7</td><td>i</td><td>8</td></tr>
+            <tr><td>8</td><td>j</td><td>9</td></tr>
+            <tr><td>8</td><td>k</td><td>9</td></tr>
+            <tr><td>9</td><td>l</td><td>10</td></tr>
+            <tr><td>10</td><td>h</td><td>0</td></tr>
+        </table>
+        <br>
+        <br> <div class = "container"> Результат работы автомата (список состояний):</div>
+        <br>
+        <img class="image" src="htmlJPEGS/lab4.png">
+        <br>
+        <br> <div class = "container"> Результат работы при неожиданном символе:</div>
+        <br>
+        <img class="image" src="htmlJPEGS/lab4error.png">
+        <br>
     </body>
 </html>
