@@ -3,6 +3,7 @@
     margin-right: auto;
     margin-left: auto;
     margin: auto;
+    
 }
 .image-text
 {
@@ -12,12 +13,19 @@
     text-align: center;
     font-family: 'Oswald', sans-serif;
 }
-.container2{
+.container1{
     font-family: 'Oswald', sans-serif;
     text-align: justify;
     display: block; 
 
     margin-left: 40%;
+}
+.container2{
+    font-family: 'Oswald', sans-serif;
+    text-align: justify;
+    display: block; 
+
+    margin-left: 35%;
 }
 /* внешние границы таблицы серого цвета толщиной 1px */
 table {

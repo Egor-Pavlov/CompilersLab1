@@ -1,2 +1,5 @@
 IF (a + b == c) THEN a := c;
-IF (a + b == c) THEN IF (a == c) THEN x := c;
+IF (a + b >= c) THEN IF (a == c) THEN x := c;
+rkjbev ej;
+IF (a + b == c) THEN  := c;
+IF a + s 
