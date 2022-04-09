@@ -416,14 +416,27 @@ namespace CompilersLab1
                 //Scaner s = new Scaner(TabControl1.SelectedTab.Controls[0].Text);
                 //s.Scan();
                 //OutRTB.Text = s.GetResult();
+
                 //лаба 4
+
                 //StateMachine stateMachine = new StateMachine(TabControl1.SelectedTab.Controls[0].Text);
                 //stateMachine.Start();
                 //OutRTB.Text = stateMachine.Result;
 
-                Recoursive r = new Recoursive(TabControl1.SelectedTab.Controls[0].Text);
-                r.Scan();
-                OutRTB.Text = r.Result + ": " + r.ResultText;
+                //лаба 5
+
+                var Strings = TabControl1.SelectedTab.Controls[0].Text.Split(';');
+                Recoursive r;
+                OutRTB.Text = "";
+
+                for(int i = 0; i < Strings.Length; i++)
+                {
+                    if (Strings[i] == "")
+                        continue;
+                    r = new Recoursive(Strings[i].Replace(";", ""));
+                    r.Scan();
+                    OutRTB.Text += "Цепочка №" + (i  + 1).ToString() + "\nРезультат проверки цепочки:" + r.Result + "\nПорядок разбора: " + r.ResultText + "\n";
+                }
             }
             catch
             {

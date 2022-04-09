@@ -9,11 +9,11 @@ namespace CompilersLab1
 
 
     //      G[<условный оператор>]:
-    //  1. <условный оператор> ::= IF <условие> THEN <оператор>
+    //  1. <условный оператор> ::= IF (<условие>) THEN <оператор>
     //  2. <условие> ::= <выражение><операция отношения><выражение>
     //  3. <выражение> ::= <терм>{ +< терм >}
     //  4. <терм> ::= <множитель>{*<множитель>}
-    //  5. < множитель > ::= < идентификатор >| (< выражение >)
+    //  5. < множитель > ::= < идентификатор > | (< выражение >)
     //  6. < идентификатор > ::= < буква >{< буква >|< цифра >}
     //  7. < оператор > ::= < идентификатор >:=< выражение > | < условный оператор > 
     //  8. < операция отношения > ::= ”==” || ”<” | ”<=” | ”>” | ”>=” | ”!=”
@@ -37,7 +37,7 @@ namespace CompilersLab1
             I++;
             while (I < Text.Length)
             {
-                if (Char.IsLetterOrDigit(Text[I]))
+                if (Char.IsLetterOrDigit(Text[I]))//пробел перед THEN был бы в тему
                     Result = true;
                 else
                 {
@@ -64,11 +64,15 @@ namespace CompilersLab1
                 {
                     Expression();
                     I++;
-                    if (Text[I] == ')')
+                    if (Text[I] != ')')
                     {
                         Result = false;
                         return;
                     }
+                }
+                else
+                {
+
                 }
 
             }
@@ -76,7 +80,7 @@ namespace CompilersLab1
         void Term()
         {
             ResultText += " Term ";
-            
+            Multiplier();
             I++;
             while (I < Text.Length)
             {
@@ -92,9 +96,9 @@ namespace CompilersLab1
             ResultText += " Expression ";
             Term();
             if(I + 1 < Text.Length)
-                while (Text[I + 1] == '+' && I + 1 < Text.Length)
+                while (Text[I] == '+' && I < Text.Length)
                 {
-                    I++;
+                    //I++;
                     Term();
 
                 }
@@ -105,7 +109,7 @@ namespace CompilersLab1
             ResultText += " Operation ";
             if (I + 1 < Text.Length)
             {
-                I++;
+                //I++;
                 if(Text[I] == '>' || Text[I] == '<')
                 {
                     I++;
@@ -153,29 +157,55 @@ namespace CompilersLab1
         public void Condition()
         {
             ResultText += " Condition ";
-            Expression();
-            Operation();
-            Expression();
-        }
-
-        //< оператор > ::= < идентификатор >:=< выражение > | < условный оператор > 
-        void Operator()
-        {
-            ResultText += " Operator ";
-            I++;
-            if (Char.IsLetter(Text[I]))
+            if (Text[I] == '(')
             {
-                Identificator();
-            }
+                Expression();
+                Operation();
+                Expression();
 
+                if (Text[I] != ')')
+                {
+                    Result = false;
+                    return;
+                }
+            }
             else
             {
                 Result = false;
                 return;
             }
 
+        
+        }
+
+        //< оператор > ::= < идентификатор >:=< выражение > | < условный оператор > 
+        void Operator()
+        {
+            ResultText += " Operator ";
+            //I++;
+
+            
             if (I + 2 < Text.Length) 
             {
+                I++;
+
+                if(Text[I] == 'I' && Text[I + 1] == 'F')
+                {
+                    ConditionalOperator();
+                    return;
+                }
+
+                if (Char.IsLetter(Text[I]))
+                {
+                    Identificator();
+                }
+
+                else
+                {
+                    Result = false;
+                    return;
+                }
+
                 I++;
                 if (Text[I] == ':')
                 {
@@ -192,7 +222,8 @@ namespace CompilersLab1
                 }
                 else
                 {
-                    ConditionalOperator();
+                    Result = false;
+                    return;
                 }
             }
 
@@ -202,7 +233,7 @@ namespace CompilersLab1
             ResultText += " ConditionalOperator ";
             if (Text[I] == 'I' && Text[I + 1] == 'F' && Text.Length > 3 + I)
             {
-                I += 1;
+                I += 2;
                 Condition();
             }
             else
