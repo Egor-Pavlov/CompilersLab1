@@ -121,7 +121,7 @@ namespace CompilersLab1
         FastColoredTextBoxNS.Style OrangeStyle = new FastColoredTextBoxNS.TextStyle(Brushes.Orange, null, FontStyle.Regular);
 
         public void FCTB_textChanged(object sender, FastColoredTextBoxNS.TextChangedEventArgs e)
-        {
+       {
             if (TabControl1.SelectedTab.Text[0] != '*')
                 TabControl1.SelectedTab.Text = "*" + TabControl1.SelectedTab.Text;
 
@@ -137,6 +137,7 @@ namespace CompilersLab1
                 e.ChangedRange.SetStyle(RedStyle, @"(True|False|echo|NULL)");
                 e.ChangedRange.SetStyle(BlueStyle, @"\$\w+");
                 e.ChangedRange.SetStyle(OrangeStyle, "\".+\"");
+                e.ChangedRange.SetStyle(OrangeStyle, "\'.\'");
                 e.ChangedRange.SetStyle(GreenStyle, "<!--.+-->");
                 e.ChangedRange.SetStyle(GreenStyle, @"/*.+\*/");
 
@@ -413,8 +414,35 @@ namespace CompilersLab1
             }
             try
             {
-                //Scaner s = new Scaner(TabControl1.SelectedTab.Controls[0].Text);
-                //s.Scan();
+                Scaner s = new Scaner(TabControl1.SelectedTab.Controls[0].Text);
+                s.Scan();
+
+
+                OutRTB.Text = "";
+                StateMachine stateMachine;
+                List<Lexem> lexems = new List<Lexem>();
+                int i = 0;
+                while (i < s.lexems.Count)
+                {
+
+                    lexems.Clear();
+                    for (; i < s.lexems.Count; i++)
+                    {
+
+                        if (s.lexems[i].Code != Codes.NewStr)
+                            lexems.Add(s.lexems[i]);
+                        else
+                        {
+                            i++;
+                            break;
+                        }
+                    }
+
+                    stateMachine = new StateMachine(lexems);
+
+                    OutRTB.Text += stateMachine.Result;
+                }
+
                 //OutRTB.Text = s.GetResult();
 
                 //лаба 4
@@ -425,18 +453,18 @@ namespace CompilersLab1
 
                 //лаба 5
 
-                var Strings = TabControl1.SelectedTab.Controls[0].Text.Split(';');
-                Recoursive r;
-                OutRTB.Text = "";
+                //var Strings = TabControl1.SelectedTab.Controls[0].Text.Split(';');
+                //Recoursive r;
+                //OutRTB.Text = "";
 
-                for(int i = 0; i < Strings.Length; i++)
-                {
-                    if (Strings[i] == "")
-                        continue;
-                    r = new Recoursive(Strings[i].Replace(";", ""));
-                    r.Scan();
-                    OutRTB.Text += "Цепочка №" + (i  + 1).ToString() + "\nРезультат проверки цепочки:" + r.Result + "\nПорядок разбора: " + r.ResultText + "\n";
-                }
+                //for(int i = 0; i < Strings.Length; i++)
+                //{
+                //    if (Strings[i] == "")
+                //        continue;
+                //    r = new Recoursive(Strings[i].Replace(";", ""));
+                //    r.Scan();
+                //    OutRTB.Text += "Цепочка №" + (i  + 1).ToString() + "\nРезультат проверки цепочки:" + r.Result + "\nПорядок разбора: " + r.ResultText + "\n";
+                //}
             }
             catch
             {

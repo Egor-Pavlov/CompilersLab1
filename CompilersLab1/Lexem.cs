@@ -8,14 +8,14 @@ namespace CompilersLab1
 {
     class Lexem
     {
-        Codes Code;
-        string Text;
-        int StartPosition;
+        public Codes Code { get; }
+        public string Text { get; }
+        public int StartPosition { get; }
 
         public Lexem(Codes code, string text, int startPos)
         {
             Code = code;
-            Text = text;
+            Text = text.Replace("\n", "");
             StartPosition = startPos;
         }
         public string GetInfo()

@@ -8,49 +8,70 @@ namespace CompilersLab1
 {
     class StateMachine
     {
-        string[] Text;
+        List<Lexem> lexems = new List<Lexem>();
         public string Result = "";
         int State = 0;
-        List<((int, string), int)> map = new List<((int, string), int)>();
+        List<((int, Codes), int)> map = new List<((int, Codes), int)>();
 
 
-        public StateMachine(string Text)
+        public StateMachine(List<Lexem> lexems)
         {
-            this.Text = Text.Replace("\n", " ").Replace("\t", " ").Replace("\r", "").Replace("  ", " ").Split(' ');
-            Result += State.ToString() + " ";
+
+            for(int i = 0; i < lexems.Count; i++)
+            {
+                if (lexems[i].Code != Codes.Space && lexems[i].Code != Codes.NewStr)
+                    this.lexems.Add(lexems[i]);
+            }
+            this.lexems.Add(new Lexem(Codes.NewStr, "#", this.lexems.Last().StartPosition + this.lexems.Last().Text.Length));
             //создаем таблицу состояний и переходов
-            map.Add(((0, "a"), 1));
-            map.Add(((0, "e"), 5));
-            map.Add(((1, "b"), 0));
-            map.Add(((1, "c"), 2));
-            map.Add(((2, "c"), 2));
-            map.Add(((2, "g"), 1));
-            map.Add(((2, "d"), 3));
-            map.Add(((3, "n"), 2));
-            map.Add(((3, "o"), 4));
-            map.Add(((4, "h"), 0));
-            map.Add(((5, "c"), 6));
-            map.Add(((5, "f"), 0));
-            map.Add(((6, "c"), 6));
-            map.Add(((6, "d"), 7));
-            map.Add(((6, "g"), 5));
-            map.Add(((7, "n"), 6));
-            map.Add(((7, "m"), 9));
-            map.Add(((7, "i"), 8));
-            map.Add(((8, "j"), 9));
-            map.Add(((8, "k"), 9));
-            map.Add(((9, "l"), 10));
-            map.Add(((10, "h"), 0));
+            map.Add(((0, Codes.Identificator), 1));
+            map.Add(((1, Codes.Equal), 2));
+            map.Add(((1, Codes.End), 4));
+            map.Add(((2, Codes.Number), 3));
+            map.Add(((2, Codes.String), 3));
+            map.Add(((2, Codes.Char), 3));
+            map.Add(((3, Codes.End), 4));
+
+            Start();
+        }
+        void Error(int i)
+        {
+            Result += "Ошибка на позиции " + lexems[i].StartPosition + ". Ожидалось: ";
+            if (State == 0)
+            {
+                Result += "Identificator";
+                State = 1;
+            }
+            else if (State == 1)
+            {
+                Result += "\"End\" or \"Equal\"";
+                State = 3;
+            }
+            else if (State == 2)
+            {
+                Result += "\"Number\" or \"String\" or \"Char\"";
+                State = 3;
+            }
+            else if (State == 3)
+            {
+                Result += "\"End\"";
+                State = 4;
+            }
+
+            Result += ". Встретилось: " + lexems[i].Code + " \"" + lexems[i].Text + "\"\n";
         }
         public void Start()
         {
             bool flag = false;
-            for (int i = 0; i < Text.Length; i++)
+            for (int i = 0; i < lexems.Count; i++)
             {
+                if (State == 4 && lexems[i].Code == Codes.NewStr)
+                    return;
+
                 flag = false;
                 for (int j = 0; j < map.Count; j++)
                 {
-                    if (map[j].Item1.Item1 == State && Text[i] == map[j].Item1.Item2)
+                    if (map[j].Item1.Item1 == State && lexems[i].Code == map[j].Item1.Item2)
                     {
                         flag = true;
                         State = map[j].Item2;
@@ -60,16 +81,80 @@ namespace CompilersLab1
                 }
                 if (flag)
                 {
-                    Result += State.ToString() + " ";
                     continue;
                 }
                 else
                 {
-                    Result += " Ошибка";
-                    return;
+                    Error(i);
+                    if(lexems[i].Code == Codes.End)
+                        i--;
                 }
+            }
+            if(State != 4)
+            {
+                Error(lexems.Count - 1);
             }
 
         }
+
+        // лаба
+
+        //public StateMachine(string Text)
+        //{
+        //    this.Text = Text.Replace("\n", " ").Replace("\t", " ").Replace("\r", "").Replace("  ", " ").Split(' ');
+        //    Result += State.ToString() + " ";
+        //    //создаем таблицу состояний и переходов
+        //    map.Add(((0, "a"), 1));
+        //    map.Add(((0, "e"), 5));
+        //    map.Add(((1, "b"), 0));
+        //    map.Add(((1, "c"), 2));
+        //    map.Add(((2, "c"), 2));
+        //    map.Add(((2, "g"), 1));
+        //    map.Add(((2, "d"), 3));
+        //    map.Add(((3, "n"), 2));
+        //    map.Add(((3, "o"), 4));
+        //    map.Add(((4, "h"), 0));
+        //    map.Add(((5, "c"), 6));
+        //    map.Add(((5, "f"), 0));
+        //    map.Add(((6, "c"), 6));
+        //    map.Add(((6, "d"), 7));
+        //    map.Add(((6, "g"), 5));
+        //    map.Add(((7, "n"), 6));
+        //    map.Add(((7, "m"), 9));
+        //    map.Add(((7, "i"), 8));
+        //    map.Add(((8, "j"), 9));
+        //    map.Add(((8, "k"), 9));
+        //    map.Add(((9, "l"), 10));
+        //    map.Add(((10, "h"), 0));
+        //}
+        //public void Start()
+        //{
+        //    bool flag = false;
+        //    for (int i = 0; i < Text.Length; i++)
+        //    {
+        //        flag = false;
+        //        for (int j = 0; j < map.Count; j++)
+        //        {
+        //            if (map[j].Item1.Item1 == State && Text[i] == map[j].Item1.Item2)
+        //            {
+        //                flag = true;
+        //                State = map[j].Item2;
+        //                break;
+        //            }
+
+        //        }
+        //        if (flag)
+        //        {
+        //            Result += State.ToString() + " ";
+        //            continue;
+        //        }
+        //        else
+        //        {
+        //            Result += " Ошибка";
+        //            return;
+        //        }
+        //    }
+
+        //}
     }
 }
