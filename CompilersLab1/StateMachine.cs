@@ -17,11 +17,12 @@ namespace CompilersLab1
         public StateMachine(List<Lexem> lexems)
         {
 
-            for(int i = 0; i < lexems.Count; i++)
+            for (int i = 0; i < lexems.Count; i++)
             {
                 if (lexems[i].Code != Codes.Space && lexems[i].Code != Codes.NewStr)
                     this.lexems.Add(lexems[i]);
             }
+
             this.lexems.Add(new Lexem(Codes.NewStr, "#", this.lexems.Last().StartPosition + this.lexems.Last().Text.Length));
             //создаем таблицу состояний и переходов
             map.Add(((0, Codes.Identificator), 1));
@@ -34,31 +35,61 @@ namespace CompilersLab1
 
             Start();
         }
-        void Error(int i)
+        int Error(int i)
         {
+            int I = i;
             Result += "Ошибка на позиции " + lexems[i].StartPosition + ". Ожидалось: ";
             if (State == 0)
             {
                 Result += "Identificator";
                 State = 1;
+                if(lexems[i].Code != Codes.Error)
+                    I--;
             }
             else if (State == 1)
             {
-                Result += "\"End\" or \"Equal\"";
-                State = 3;
+                if (lexems.Count == 3 && i == 1 || lexems[i].Code == Codes.NewStr)
+                {
+                    Result += "\"End\"";
+                    State = 4;
+                }
+
+                else if (lexems[i].Code != Codes.NewStr)
+                {
+                    Result += "\"Equal\"";
+                    State = 2;
+
+                    if (lexems[i].Code != Codes.Error)
+                        I--;
+                }
+                
+
             }
             else if (State == 2)
             {
-                Result += "\"Number\" or \"String\" or \"Char\"";
-                State = 3;
+                if(lexems[i].Code == Codes.End)
+                {
+                    Result += "\"Number\" or \"String\" or \"Char\"";
+                    State = 4;
+                }
+                else
+                {
+                    Result += "\"Number\" or \"String\" or \"Char\"";
+                    State = 3;
+                }
             }
             else if (State == 3)
             {
                 Result += "\"End\"";
                 State = 4;
             }
+            else if(State == 4)
+            {
+                Result += "#";
+            }
 
             Result += ". Встретилось: " + lexems[i].Code + " \"" + lexems[i].Text + "\"\n";
+            return I;
         }
         public void Start()
         {
@@ -85,12 +116,11 @@ namespace CompilersLab1
                 }
                 else
                 {
-                    Error(i);
-                    if(lexems[i].Code == Codes.End)
-                        i--;
+                    i = Error(i);
+                    
                 }
             }
-            if(State != 4)
+            if (State != 4)
             {
                 Error(lexems.Count - 1);
             }

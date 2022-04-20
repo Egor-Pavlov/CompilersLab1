@@ -31,7 +31,7 @@ namespace CompilersLab1
         public List<Lexem> lexems = new List<Lexem>();
         public Scaner(string Text)
         {
-            this.Text = Text.Replace("\r", "").Replace("\t", " ");
+            this.Text = Text.Replace("\r", "").Replace("\t", " ").Replace("  ", " ").Replace(";", ";\n");
         }
         public string GetResult()
         {
@@ -105,10 +105,24 @@ namespace CompilersLab1
 
                 if (!Char.IsLetter(Text[i + 1]))
                 {
-                    str += Text[i + 1];
+                    i++;
+                    while (i < Text.Length)
+                    {
+                        if (Text[i] != ' ' && Text[i] != ';' && Text[i] != '\n')
+                        {
+
+                            str += Text[i];
+                            i++;
+                        }
+                        else
+                        {
+                            i--;
+                            break;
+                        }
+                    }
                     Lexem l0 = new Lexem(Codes.Error, str, start);
                     lexems.Add(l0);
-                    return i + 1;
+                    return i;
                 }
                 i++;
                 str += Text[i];
@@ -497,8 +511,31 @@ namespace CompilersLab1
             {
                 if (Text[i + 1] != '"')
                 {
-                    str += Text[i + 1];
-                    i++;
+                    if(Char.IsLetterOrDigit(Text[i + 1]) || Text[i + 1] == '!' || Text[i + 1] == '&' || Text[i + 1] == '?' || Text[i + 1] == ',' || Text[i + 1] == '/' || Text[i + 1] == ' ')
+                    {
+                        str += Text[i + 1];
+                        i++;
+                    }
+                    else
+                    {
+                        i++;
+                        while (i < Text.Length)
+                        {
+                            if (Text[i] != ' ' && Text[i] != ';' && Text[i] != '\n')
+                            {
+
+                                str += Text[i];
+                                i++;
+                            }
+                            else
+                            {
+                                i--;
+                                break;
+                            }
+                        }
+                        l = new Lexem(Codes.Error, str, start);
+                        break;
+                    }
                 }
                 else break;
             }
@@ -548,6 +585,22 @@ namespace CompilersLab1
                         }
                         else
                         {
+                            str += Text[i];
+                            i++;
+                            while (i < Text.Length)
+                            {
+                                if (Text[i] != ' ' && Text[i] != ';' && Text[i] != '\n')
+                                {
+
+                                    str += Text[i];
+                                    i++;
+                                }
+                                else
+                                {
+                                    i--;
+                                    break;
+                                }
+                            }
                             l = new Lexem(Codes.Error, str, start);
                         }
 
@@ -584,7 +637,7 @@ namespace CompilersLab1
             //если следующий символ подходит, то записываем его в строку
             while (i < Text.Length)
             {
-                if (Text[i] != ' ' && Text[i] != ';')
+                if (Text[i] != ' ' && Text[i] != ';' && Text[i] != '\n')
                 {
 
                     str += Text[i];

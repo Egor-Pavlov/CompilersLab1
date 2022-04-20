@@ -437,10 +437,21 @@ namespace CompilersLab1
                             break;
                         }
                     }
+                    if(lexems.Count >= 1)
+                    {
+                        if (lexems.Count == 1 && lexems[0].Code != Codes.NewStr)
+                        {
+                            stateMachine = new StateMachine(lexems);
+                            OutRTB.Text += stateMachine.Result;
+                        }
+                        else if(lexems.Count > 1)
+                        {
+                            stateMachine = new StateMachine(lexems);
+                            OutRTB.Text += stateMachine.Result;
+                        }
 
-                    stateMachine = new StateMachine(lexems);
+                    }
 
-                    OutRTB.Text += stateMachine.Result;
                 }
 
                 //OutRTB.Text = s.GetResult();

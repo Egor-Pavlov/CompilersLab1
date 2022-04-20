@@ -8,7 +8,7 @@ namespace CompilersLab1
 {
     class Lexem
     {
-        public Codes Code { get; }
+        public Codes Code;
         public string Text { get; }
         public int StartPosition { get; }
 
