@@ -52,10 +52,7 @@ namespace CompilersLab1
                 {
                     i = CheckIdentificator(i);
                 }
-                //else if (Char.IsLetter(Text[i]))
-                //{
-                //    i = CheckWord(i);
-                //}
+
                 else if (Text[i] == '=')
                 {
                     i = CheckEqual(i);
@@ -72,14 +69,7 @@ namespace CompilersLab1
                 {
                     i = CheckNewStr(i);
                 }
-                //else if (Text[i] == '/')
-                //{
-                //    i = CheckComment1(i);
-                //}
-                //else if (Text[i] == '<')
-                //{
-                //    i = CheckComment2(i);
-                //}
+
                 else if (Char.IsDigit(Text[i]))
                 {
                     i = CheckDigit(i);
@@ -154,45 +144,6 @@ namespace CompilersLab1
                 return i;
             }
         }
-
-        //int CheckWord(int i)
-        //{
-        //    string str = "";
-        //    str += Text[i];
-        //    int start = i;
-
-        //    //если следующий символ подходит, то записываем его в строку
-        //    while (i + 1 < Text.Length)
-        //    {
-        //        if (Char.IsLetter(Text[i + 1]))
-        //        {
-        //            str += Text[i + 1];
-        //            i++;
-        //        }
-        //        else break;
-        //    }
-        //    Lexem l = null;
-
-        //    //если вдруг кончился текст то записываем то что есть
-        //    if (str == "echo")
-        //    {
-        //        l = new Lexem(Codes.OutputOperator, str, start);
-        //    }
-        //    else if (str == "True")
-        //        l = new Lexem(Codes.True, str, start);
-        //    else if (str == "False")
-        //        l = new Lexem(Codes.False, str, start);
-        //    else if (str == "Null")
-        //        l = new Lexem(Codes.Null, str, start);
-
-        //    if (l == null)
-        //    {
-        //        l = new Lexem(Codes.Error, str, start);
-        //    }
-
-        //    lexems.Add(l);
-        //    return i;
-        //}
         int CheckEqual(int i)
         {
             Lexem l = null;
@@ -245,199 +196,7 @@ namespace CompilersLab1
             lexems.Add(l);
             return i;
         }
-        //int CheckComment1(int i)
-        //{
-        //    string str = "";
-        //    str += Text[i];
-        //    int start = i;
-        //    Lexem l = null;
-        //    if (Text.Length - 1 != i)
-        //    {
-        //        if (Text[i + 1] == '*')
-        //        {
-        //            str += Text[i + 1];
-        //            i++;
-        //        }
-        //        else
-        //        {
-        //            l = new Lexem(Codes.Error, str, start);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        l = new Lexem(Codes.Error, str, start);
-        //    }
-        //    while (i + 1 < Text.Length)
-        //    {
-        //        if (Text[i + 1] != '*')
-        //        {
-        //            str += Text[i + 1];
-        //            i++;
-        //        }
-        //        else break;
-        //    }
-        //    if (Text.Length - 1 != i)
-        //    {
-        //        if (Text[i + 1] == '*')
-        //        {
-        //            str += Text[i + 1];
-        //            i++;
-        //        }
-        //        else
-        //        {
-        //            l = new Lexem(Codes.Error, str, start);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        l = new Lexem(Codes.Error, str, start);
-        //    }
 
-        //    if (Text.Length - 1 != i)
-        //    {
-        //        if (Text[i + 1] == '/')
-        //        {
-        //            str += Text[i + 1];
-        //            i++;
-        //        }
-        //        else
-        //        {
-        //            l = new Lexem(Codes.Error, str, start);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        l = new Lexem(Codes.Error, str, start);
-        //    }
-
-        //    if (l == null)
-        //    {
-        //        l = new Lexem(Codes.Comment1, str, start);
-        //    }
-        //    lexems.Add(l);
-        //    return i;
-        //}
-        //int CheckComment2(int i)
-        //{
-        //    string str = "";
-        //    str += Text[i];
-        //    int start = i;
-        //    Lexem l = null;
-        //    if (Text.Length - 1 != i)
-        //    {
-        //        if (Text[i + 1] == '!')
-        //        {
-        //            str += Text[i + 1];
-        //            i++;
-        //        }
-        //        else
-        //        {
-        //            l = new Lexem(Codes.Error, str, start);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        l = new Lexem(Codes.Error, str, start);
-        //    }
-        //    if (Text.Length - 1 != i)
-        //    {
-        //        if (Text[i + 1] == '-')
-        //        {
-        //            str += Text[i + 1];
-        //            i++;
-        //        }
-        //        else
-        //        {
-        //            l = new Lexem(Codes.Error, str, start);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        l = new Lexem(Codes.Error, str, start);
-        //    }
-        //    if (Text.Length - 1 != i)
-        //    {
-        //        if (Text[i + 1] == '-')
-        //        {
-        //            str += Text[i + 1];
-        //            i++;
-        //        }
-        //        else
-        //        {
-        //            l = new Lexem(Codes.Error, str, start);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        l = new Lexem(Codes.Error, str, start);
-        //    }
-
-        //    while (i + 1 < Text.Length)
-        //    {
-        //        if (Text[i + 1] != '-')
-        //        {
-        //            str += Text[i + 1];
-        //            i++;
-        //        }
-        //        else break;
-        //    }
-        //    if (Text.Length - 1 != i)
-        //    {
-        //        if (Text[i + 1] == '-')
-        //        {
-        //            str += Text[i + 1];
-        //            i++;
-        //        }
-        //        else
-        //        {
-        //            l = new Lexem(Codes.Error, str, start);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        l = new Lexem(Codes.Error, str, start);
-        //    }
-
-        //    if (Text.Length - 1 != i)
-        //    {
-        //        if (Text[i + 1] == '-')
-        //        {
-        //            str += Text[i + 1];
-        //            i++;
-        //        }
-        //        else
-        //        {
-        //            l = new Lexem(Codes.Error, str, start);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        l = new Lexem(Codes.Error, str, start);
-        //    }
-        //    if (Text.Length - 1 != i)
-        //    {
-        //        if (Text[i + 1] == '>')
-        //        {
-        //            str += Text[i + 1];
-        //            i++;
-        //        }
-        //        else
-        //        {
-        //            l = new Lexem(Codes.Error, str, start);
-        //        }
-        //    }
-        //    else
-        //    {
-        //        l = new Lexem(Codes.Error, str, start);
-        //    }
-
-        //    if (l == null)
-        //    {
-        //        l = new Lexem(Codes.Comment2, str, start);
-        //    }
-        //    lexems.Add(l);
-        //    return i;
-        //}
         int CheckDigit(int i)
         {
             string str = "";

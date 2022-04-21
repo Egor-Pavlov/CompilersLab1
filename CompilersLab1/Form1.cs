@@ -24,6 +24,8 @@ namespace CompilersLab1
             InitializeComponent();
             //saveFileDialog1.Filter = "txt files (*.txt)|*.txt|All files (*.*)|*.*";
             this.FormClosing += Exit_Click;
+
+            OutRTB.Font = new Font("San Serif", 14, FontStyle.Regular);
         }
 
         private void Exit_Click(object sender, EventArgs e)
@@ -63,7 +65,7 @@ namespace CompilersLab1
                 title = Path.GetFileName(name) + "     ";
             //создаем объект вкладки
             TabPage myTabPage = new TabPage(title);
-            myTabPage.Font = new Font("San Serif", 8, FontStyle.Regular); ;
+            myTabPage.Font = new Font("San Serif", 10, FontStyle.Regular);
             //пихаем в таб контрол
             TabControl1.TabPages.Add(myTabPage);
             //создаем поле для текста
@@ -81,10 +83,9 @@ namespace CompilersLab1
                 newtextBox.Language = FastColoredTextBoxNS.Language.JS;
 
             newtextBox.TextChanged += new EventHandler<FastColoredTextBoxNS.TextChangedEventArgs>(FCTB_textChanged);
-
             //размеры поля
             newtextBox.Size = myTabPage.Size;
-
+            newtextBox.Font = new Font("San Serif", 14, FontStyle.Regular);
             //засовываем поле во вкладку
             TabControl1.TabPages[TabControl1.TabPages.Count - 1].Controls.Add(newtextBox);
 
@@ -414,45 +415,57 @@ namespace CompilersLab1
             }
             try
             {
-                Scaner s = new Scaner(TabControl1.SelectedTab.Controls[0].Text);
-                s.Scan();
-
-
-                OutRTB.Text = "";
+                var text = TabControl1.SelectedTab.Controls[0].Text.Split('\n');
+                Scaner s;
                 StateMachine stateMachine;
                 List<Lexem> lexems = new List<Lexem>();
-                int i = 0;
-                while (i < s.lexems.Count)
+                OutRTB.Text = "";
+
+
+                for (int j = 0; j < text.Length; j++)
                 {
 
-                    lexems.Clear();
-                    for (; i < s.lexems.Count; i++)
-                    {
+                    s = new Scaner(text[j]);
+                    s.Scan();
 
-                        if (s.lexems[i].Code != Codes.NewStr)
-                            lexems.Add(s.lexems[i]);
-                        else
-                        {
-                            i++;
-                            break;
-                        }
-                    }
-                    if(lexems.Count >= 1)
+                    int i = 0;
+                    int stringNum = 0;
+                    while (i < s.lexems.Count)
                     {
-                        if (lexems.Count == 1 && lexems[0].Code != Codes.NewStr)
+                        lexems.Clear();
+                        for (; i < s.lexems.Count; i++)
                         {
-                            stateMachine = new StateMachine(lexems);
-                            OutRTB.Text += stateMachine.Result;
+
+                            if (s.lexems[i].Code != Codes.NewStr)
+                                lexems.Add(s.lexems[i]);
+                            else
+                            {
+                                i++;
+                                break;
+                            }
                         }
-                        else if(lexems.Count > 1)
+                        stringNum++;
+                        if (lexems.Count >= 1)
                         {
-                            stateMachine = new StateMachine(lexems);
-                            OutRTB.Text += stateMachine.Result;
+                            if (lexems.Count == 1 && lexems[0].Code != Codes.NewStr)
+                            {
+                                stateMachine = new StateMachine(lexems, j + 1);
+                                OutRTB.Text += stateMachine.Result;
+                            }
+                            else if (lexems.Count > 1)
+                            {
+                                stateMachine = new StateMachine(lexems, j + 1);
+                                OutRTB.Text += stateMachine.Result;
+                            }
+
                         }
 
                     }
 
                 }
+
+
+
 
                 //OutRTB.Text = s.GetResult();
 
@@ -468,13 +481,13 @@ namespace CompilersLab1
                 //Recoursive r;
                 //OutRTB.Text = "";
 
-                //for(int i = 0; i < Strings.Length; i++)
+                //for (int i = 0; i < Strings.Length; i++)
                 //{
                 //    if (Strings[i] == "")
                 //        continue;
                 //    r = new Recoursive(Strings[i].Replace(";", ""));
                 //    r.Scan();
-                //    OutRTB.Text += "Цепочка №" + (i  + 1).ToString() + "\nРезультат проверки цепочки:" + r.Result + "\nПорядок разбора: " + r.ResultText + "\n";
+                //    OutRTB.Text += "Цепочка №" + (i + 1).ToString() + "\nРезультат проверки цепочки:" + r.Result + "\nПорядок разбора: " + r.ResultText + "\n";
                 //}
             }
             catch

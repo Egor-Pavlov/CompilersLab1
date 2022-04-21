@@ -12,17 +12,18 @@ namespace CompilersLab1
         public string Result = "";
         int State = 0;
         List<((int, Codes), int)> map = new List<((int, Codes), int)>();
+        string StringNum;
 
-
-        public StateMachine(List<Lexem> lexems)
+        public StateMachine(List<Lexem> lexems, int n)
         {
-
+            StringNum = n.ToString();
             for (int i = 0; i < lexems.Count; i++)
             {
                 if (lexems[i].Code != Codes.Space && lexems[i].Code != Codes.NewStr)
                     this.lexems.Add(lexems[i]);
             }
-
+            if (this.lexems.Count == 0)
+                return;
             this.lexems.Add(new Lexem(Codes.NewStr, "#", this.lexems.Last().StartPosition + this.lexems.Last().Text.Length));
             //создаем таблицу состояний и переходов
             map.Add(((0, Codes.Identificator), 1));
@@ -38,57 +39,99 @@ namespace CompilersLab1
         int Error(int i)
         {
             int I = i;
-            Result += "Ошибка на позиции " + lexems[i].StartPosition + ". Ожидалось: ";
+            Result += "Строка " + StringNum + ": Ошибка на позиции " + lexems[i].StartPosition + ". Ожидалось: ";
             if (State == 0)
             {
-                Result += "Identificator";
+                Result += "Идентификатор";
                 State = 1;
-                if(lexems[i].Code != Codes.Error)
-                    I--;
+                Result += ". Встретилось: " + "\"" + lexems[i].Text + "\"\n";
+                if (lexems[i].Code != Codes.Error)
+                {
+                    Lexem l = new Lexem(lexems[i].Code, lexems[i].Text, lexems[i].StartPosition);
+                    lexems.Insert(i, l);
+                    lexems[i].Code = Codes.Identificator;
+                    lexems[i].Text = "$<identificator>";
+
+
+                }
+                else
+                {
+                    lexems[i].Code = Codes.Identificator;
+                    lexems[i].Text = "$<identificator>";
+                }
             }
             else if (State == 1)
             {
                 if (lexems.Count == 3 && i == 1 || lexems[i].Code == Codes.NewStr)
                 {
-                    Result += "\"End\"";
+                    Result += "\";\"";
+                    Result += ". Встретилось: " + "\"" + lexems[i].Text + "\"\n";
+                    lexems[i].Code = Codes.End;
+                    lexems[i].Text = ";";
                     State = 4;
                 }
 
                 else if (lexems[i].Code != Codes.NewStr)
                 {
-                    Result += "\"Equal\"";
+                    Result += "\"=\"";
                     State = 2;
-
+                    Result += ". Встретилось: " + "\"" + lexems[i].Text + "\"\n";
                     if (lexems[i].Code != Codes.Error)
+                    {
+                        lexems[i].Code = Codes.Equal;
+                        lexems[i].Text = "=";
                         I--;
+                    }
+                    else
+                    {
+                        Lexem l = new Lexem(lexems[i].Code, lexems[i].Text, lexems[i].StartPosition);
+                        lexems.Insert(i, l);
+                        lexems[i].Code = Codes.Equal;
+                        lexems[i].Text = "=";
+                    }
+
                 }
-                
+
 
             }
             else if (State == 2)
             {
-                if(lexems[i].Code == Codes.End)
+                if (lexems[i].Code == Codes.End)
                 {
-                    Result += "\"Number\" or \"String\" or \"Char\"";
-                    State = 4;
+                    Result += "Число, или строка, или символ";
+                    State = 3;
+                    Result += ". Встретилось: " + "\"" + lexems[i].Text + "\"\n";
+                    Lexem l = new Lexem(lexems[i].Code, lexems[i].Text, lexems[i].StartPosition);
+                    lexems.Insert(i, l);
+                    lexems[i].Code = Codes.Number;
+                    lexems[i].Text = "0";
                 }
                 else
                 {
-                    Result += "\"Number\" or \"String\" or \"Char\"";
+                    Result += "число, или строка, или символ";
                     State = 3;
+                    Result += ". Встретилось: " + "\"" + lexems[i].Text + "\"\n";
+                    lexems[i].Code = Codes.Number;
+                    lexems[i].Text = "0";
                 }
             }
             else if (State == 3)
             {
-                Result += "\"End\"";
+                Result += "\";\"";
                 State = 4;
+                Result += ". Встретилось: " + "\"" + lexems[i].Text + "\"\n";
+                lexems[i].Code = Codes.Equal;
+                lexems[i].Text = ";";
             }
-            else if(State == 4)
+            else if (State == 4)
             {
                 Result += "#";
+                Result += ". Встретилось: " + "\"" + lexems[i].Text + "\"\n";
+                lexems[i].Code = Codes.NewStr;
+                lexems[i].Text = "#";
             }
 
-            Result += ". Встретилось: " + lexems[i].Code + " \"" + lexems[i].Text + "\"\n";
+
             return I;
         }
         public void Start()
@@ -97,7 +140,7 @@ namespace CompilersLab1
             for (int i = 0; i < lexems.Count; i++)
             {
                 if (State == 4 && lexems[i].Code == Codes.NewStr)
-                    return;
+                    break;
 
                 flag = false;
                 for (int j = 0; j < map.Count; j++)
@@ -117,74 +160,26 @@ namespace CompilersLab1
                 else
                 {
                     i = Error(i);
-                    
+
                 }
             }
             if (State != 4)
             {
                 Error(lexems.Count - 1);
             }
+            if (Result != "")
+            {
 
+                string fixedstr = "Исправленная строка: ";
+
+                foreach (Lexem l in lexems)
+                {
+                    if(l.Text != "#")
+                    fixedstr += l.Text;
+                }
+                Result += fixedstr + "\n";
+            }
         }
 
-        // лаба
-
-        //public StateMachine(string Text)
-        //{
-        //    this.Text = Text.Replace("\n", " ").Replace("\t", " ").Replace("\r", "").Replace("  ", " ").Split(' ');
-        //    Result += State.ToString() + " ";
-        //    //создаем таблицу состояний и переходов
-        //    map.Add(((0, "a"), 1));
-        //    map.Add(((0, "e"), 5));
-        //    map.Add(((1, "b"), 0));
-        //    map.Add(((1, "c"), 2));
-        //    map.Add(((2, "c"), 2));
-        //    map.Add(((2, "g"), 1));
-        //    map.Add(((2, "d"), 3));
-        //    map.Add(((3, "n"), 2));
-        //    map.Add(((3, "o"), 4));
-        //    map.Add(((4, "h"), 0));
-        //    map.Add(((5, "c"), 6));
-        //    map.Add(((5, "f"), 0));
-        //    map.Add(((6, "c"), 6));
-        //    map.Add(((6, "d"), 7));
-        //    map.Add(((6, "g"), 5));
-        //    map.Add(((7, "n"), 6));
-        //    map.Add(((7, "m"), 9));
-        //    map.Add(((7, "i"), 8));
-        //    map.Add(((8, "j"), 9));
-        //    map.Add(((8, "k"), 9));
-        //    map.Add(((9, "l"), 10));
-        //    map.Add(((10, "h"), 0));
-        //}
-        //public void Start()
-        //{
-        //    bool flag = false;
-        //    for (int i = 0; i < Text.Length; i++)
-        //    {
-        //        flag = false;
-        //        for (int j = 0; j < map.Count; j++)
-        //        {
-        //            if (map[j].Item1.Item1 == State && Text[i] == map[j].Item1.Item2)
-        //            {
-        //                flag = true;
-        //                State = map[j].Item2;
-        //                break;
-        //            }
-
-        //        }
-        //        if (flag)
-        //        {
-        //            Result += State.ToString() + " ";
-        //            continue;
-        //        }
-        //        else
-        //        {
-        //            Result += " Ошибка";
-        //            return;
-        //        }
-        //    }
-
-        //}
     }
 }

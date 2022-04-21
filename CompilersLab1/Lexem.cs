@@ -9,7 +9,7 @@ namespace CompilersLab1
     class Lexem
     {
         public Codes Code;
-        public string Text { get; }
+        public string Text;
         public int StartPosition { get; }
 
         public Lexem(Codes code, string text, int startPos)
