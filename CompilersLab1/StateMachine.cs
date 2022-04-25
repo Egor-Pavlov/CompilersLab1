@@ -120,8 +120,19 @@ namespace CompilersLab1
                 Result += "\";\"";
                 State = 4;
                 Result += ". Встретилось: " + "\"" + lexems[i].Text + "\"\n";
-                lexems[i].Code = Codes.Equal;
-                lexems[i].Text = ";";
+                if (lexems.Count > i)
+                {
+                    if (lexems[i + 1].Code == Codes.End)
+                    {
+                        State = 3;
+                    }
+                }
+                else
+                {
+
+                    lexems[i].Code = Codes.End;
+                    lexems[i].Text = ";";
+                }
             }
             else if (State == 4)
             {
@@ -174,8 +185,8 @@ namespace CompilersLab1
 
                 foreach (Lexem l in lexems)
                 {
-                    if(l.Text != "#")
-                    fixedstr += l.Text;
+                    if (l.Text != "#")
+                        fixedstr += l.Text;
                 }
                 Result += fixedstr + "\n";
             }

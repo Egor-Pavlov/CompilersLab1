@@ -262,10 +262,10 @@ namespace CompilersLab1
             {
                 if (start != 0)
                 {
-                    if (Text[start - 1] == '\n' || Text[start - 1] == ' ')
-                    {
-                        l = new Lexem(Codes.Number, str, start);
-                    }
+                    l = new Lexem(Codes.Number, str, start);
+                    //if (Text[start - 1] == '\n' || Text[start - 1] == ' ')
+                    //{
+                    //}
                 }
                 else l = new Lexem(Codes.Number, str, start);
             }
