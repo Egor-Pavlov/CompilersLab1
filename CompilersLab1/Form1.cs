@@ -521,7 +521,7 @@ namespace CompilersLab1
             }
              catch
             {
-                OutRTB.Text = "Error: Invalid user :(";
+                OutRTB.Text = "Произошла неизвестная ошибка :(";
             }
         }
 
