@@ -154,6 +154,8 @@ namespace CompilersLab1
         }
         void SaveFunc()
         {
+            if (TabControl1.TabPages.Count == 0)
+                return;
             //если во вкладке записан путь
             if (TabControl1.SelectedTab.ContextMenuStrip.Items[0].Text != "")
                 try
@@ -174,16 +176,22 @@ namespace CompilersLab1
 
         void CopyFunc()
         {
+            if (TabControl1.TabPages.Count == 0)
+                return;
             FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.Copy();
         }
         void PasteFunc()
         {
+            if (TabControl1.TabPages.Count == 0)
+                return;
             FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.Paste();
         }
         void CutFunc()
         {
+            if (TabControl1.TabPages.Count == 0)
+                return;
             FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.Cut();
         }
@@ -208,6 +216,9 @@ namespace CompilersLab1
         //сохранить как
         private void SaveAs_Click(object sender, EventArgs e)
         {
+            if (TabControl1.TabPages.Count == 0)
+                return;
+
             if (saveFileDialog1.ShowDialog() == DialogResult.Cancel)
                 return;
             ToolStripMenuItem path = new ToolStripMenuItem(saveFileDialog1.FileName);
@@ -266,42 +277,55 @@ namespace CompilersLab1
 
         private void Delete_Click(object sender, EventArgs e)
         {
+            if (TabControl1.TabPages.Count == 0)
+                return;
             FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.SelectedText = "";
         }
 
         private void SelectAll_Click(object sender, EventArgs e)
         {
+            if (TabControl1.TabPages.Count == 0)
+                return;
             FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.SelectAll();
         }
 
         private void CancelButt_Click(object sender, EventArgs e)
         {
+            if (TabControl1.TabPages.Count == 0)
+                return;
             FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.Undo();
         }
 
         private void Cancel_Click(object sender, EventArgs e)
         {
+            if (TabControl1.TabPages.Count == 0)
+                return;
             FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.Undo();
         }
 
         private void RepeatButt_Click(object sender, EventArgs e)
         {
+            if (TabControl1.TabPages.Count == 0)
+                return;
             FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.Redo();
         }
 
         private void Repeat_Click(object sender, EventArgs e)
         {
+            if (TabControl1.TabPages.Count == 0)
+                return;
             FastColoredTextBoxNS.FastColoredTextBox InputRTB = (FastColoredTextBoxNS.FastColoredTextBox)TabControl1.SelectedTab.Controls[0];
             InputRTB.Redo();
         }
 
         private void HelpButt_Click(object sender, EventArgs e)
         {
+
             Info_Click(null, null);
         }
 
@@ -309,7 +333,8 @@ namespace CompilersLab1
         {
             try
             {
-                Process.Start(@"..\..\..\info\help.html");
+                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
+                Process.Start("Acrobat.exe", " /A \"page=16\" \"" + file + "\"");
             }
             catch
             {
@@ -319,10 +344,15 @@ namespace CompilersLab1
 
         private void AboutMe_Click(object sender, EventArgs e)
         {
-            string path = @"..\..\..\info\aboutme.txt";
-
-            using (StreamReader sr = new StreamReader(path))
-                MessageBox.Show(sr.ReadToEnd(), "О программе:", MessageBoxButtons.OK, MessageBoxIcon.Information);
+            try
+            {
+                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
+                Process.Start("Acrobat.exe", " /A \"page=21\" \"" + file + "\"");
+            }
+            catch
+            {
+                MessageBox.Show("Невозможно открыть справку :(", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
         }
 
         private void TabControl1_DrawItem(object sender, DrawItemEventArgs e)
@@ -385,6 +415,8 @@ namespace CompilersLab1
 
         private void CloseThisTab_Click(object sender, EventArgs e)
         {
+            if (TabControl1.TabPages.Count == 0)
+                return;
             //предлагаем сохранить
             if (TabControl1.SelectedTab.Text[0] == '*')
             {
@@ -464,9 +496,6 @@ namespace CompilersLab1
 
                 }
 
-
-
-
                 //OutRTB.Text = s.GetResult();
 
                 //лаба 4
@@ -490,9 +519,113 @@ namespace CompilersLab1
                 //    OutRTB.Text += "Цепочка №" + (i + 1).ToString() + "\nРезультат проверки цепочки:" + r.Result + "\nПорядок разбора: " + r.ResultText + "\n";
                 //}
             }
-            catch
+             catch
             {
                 OutRTB.Text = "Error: Invalid user :(";
+            }
+        }
+
+        private void ProblemStatement_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
+                Process.Start("Acrobat.exe", " /A \"page=5\" \"" + file + "\"");
+            }
+            catch
+            {
+                MessageBox.Show("Невозможно открыть справку :(", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Grammar_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
+                Process.Start("Acrobat.exe", " /A \"page=6\" \"" + file + "\"");
+            }
+            catch
+            {
+                MessageBox.Show("Невозможно открыть справку :(", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void GrammarClassification_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
+                Process.Start("Acrobat.exe", " /A \"page=7\" \"" + file + "\"");
+            }
+            catch
+            {
+                MessageBox.Show("Невозможно открыть справку :(", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void MethodOfAnalysis_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
+                Process.Start("Acrobat.exe", " /A \"page=8\" \"" + file + "\"");
+            }
+            catch
+            {
+                MessageBox.Show("Невозможно открыть справку :(", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Diagnosis_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
+                Process.Start("Acrobat.exe", " /A \"page=10\" \"" + file + "\"");
+            }
+            catch
+            {
+                MessageBox.Show("Невозможно открыть справку :(", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Example_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
+                Process.Start("Acrobat.exe", " /A \"page=11\" \"" + file + "\"");
+            }
+            catch
+            {
+                MessageBox.Show("Невозможно открыть справку :(", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Liter_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
+                Process.Start("Acrobat.exe", " /A \"page=15\" \"" + file + "\"");
+            }
+            catch
+            {
+                MessageBox.Show("Невозможно открыть справку :(", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
+            }
+        }
+
+        private void Source_Click(object sender, EventArgs e)
+        {
+            try
+            {
+                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
+                Process.Start("Acrobat.exe", " /A \"page=23\" \"" + file + "\"");
+            }
+            catch
+            {
+                MessageBox.Show("Невозможно открыть справку :(", "Ошибка", MessageBoxButtons.OK, MessageBoxIcon.Error);
             }
         }
     }

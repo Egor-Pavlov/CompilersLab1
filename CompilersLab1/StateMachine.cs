@@ -122,9 +122,23 @@ namespace CompilersLab1
                 Result += ". Встретилось: " + "\"" + lexems[i].Text + "\"\n";
                 if (lexems.Count > i)
                 {
-                    if (lexems[i + 1].Code == Codes.End)
+                    if (lexems.Count > i + 1)
                     {
-                        State = 3;
+                        if (lexems[i + 1].Code == Codes.NewStr)
+                        {
+                            State = 3;
+
+                            lexems[i].Code = Codes.End;
+                            lexems[i].Text = ";";
+                            I--;
+                        }
+                    }
+                    if(lexems[i].Code == Codes.NewStr)
+                    {
+                        Lexem l = new Lexem(lexems[i].Code, lexems[i].Text, lexems[i].StartPosition);
+                        lexems.Insert(i, l);
+                        lexems[i].Code = Codes.End;
+                        lexems[i].Text = ";";
                     }
                 }
                 else

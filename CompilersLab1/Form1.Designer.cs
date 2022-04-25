@@ -244,48 +244,56 @@
             this.ProblemStatement.Name = "ProblemStatement";
             this.ProblemStatement.Size = new System.Drawing.Size(456, 32);
             this.ProblemStatement.Text = "Постановка задачи";
+            this.ProblemStatement.Click += new System.EventHandler(this.ProblemStatement_Click);
             // 
             // Grammar
             // 
             this.Grammar.Name = "Grammar";
             this.Grammar.Size = new System.Drawing.Size(456, 32);
             this.Grammar.Text = "Грамматика";
+            this.Grammar.Click += new System.EventHandler(this.Grammar_Click);
             // 
             // GrammarClassification
             // 
             this.GrammarClassification.Name = "GrammarClassification";
             this.GrammarClassification.Size = new System.Drawing.Size(456, 32);
             this.GrammarClassification.Text = "Классификация грамматики";
+            this.GrammarClassification.Click += new System.EventHandler(this.GrammarClassification_Click);
             // 
             // MethodOfAnalysis
             // 
             this.MethodOfAnalysis.Name = "MethodOfAnalysis";
             this.MethodOfAnalysis.Size = new System.Drawing.Size(456, 32);
             this.MethodOfAnalysis.Text = "Метод анализа";
+            this.MethodOfAnalysis.Click += new System.EventHandler(this.MethodOfAnalysis_Click);
             // 
             // Diagnosis
             // 
             this.Diagnosis.Name = "Diagnosis";
             this.Diagnosis.Size = new System.Drawing.Size(456, 32);
             this.Diagnosis.Text = "Диагностика и нейтрализация ошибок";
+            this.Diagnosis.Click += new System.EventHandler(this.Diagnosis_Click);
             // 
             // Example
             // 
             this.Example.Name = "Example";
             this.Example.Size = new System.Drawing.Size(456, 32);
             this.Example.Text = "Тестовый пример";
+            this.Example.Click += new System.EventHandler(this.Example_Click);
             // 
             // Liter
             // 
             this.Liter.Name = "Liter";
             this.Liter.Size = new System.Drawing.Size(456, 32);
             this.Liter.Text = "Список литературы";
+            this.Liter.Click += new System.EventHandler(this.Liter_Click);
             // 
             // Source
             // 
             this.Source.Name = "Source";
             this.Source.Size = new System.Drawing.Size(456, 32);
             this.Source.Text = "Исходный код программы";
+            this.Source.Click += new System.EventHandler(this.Source_Click);
             // 
             // Start
             // 

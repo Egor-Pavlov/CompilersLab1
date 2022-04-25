@@ -1,0 +1,37 @@
+$;
+$$
+$$a
+$='';
+$x='5';
+$cp='38';
+$zhx='696';
+$eppo='0366';
+$qeuls='55094';
+
+$=0;
+$w=1;
+$on=1;
+$svg=2;
+$uejd=1;
+$wmcvp=2;
+$fmtypd=2;
+$ebpclkd=5;
+$ozxjdjla=6;
+$kwadeychh=6;
+
+$="";
+$f="&";
+$sg="',";
+$tbc="!?,";
+$ddiq="!/'!";
+$zffqy="&!&&!";
+$xvcuvi="!'?'!&";
+$aiboyvk="!//?!&?";
+$prxilfja="&&?/,!&?";
+$lcfytyxtc="'/,'!!?&'";
+
+$a = $b;
+$a = ($b = 12);
+$a =;
+;
+$a = "$a";

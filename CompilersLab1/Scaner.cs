@@ -224,6 +224,10 @@ namespace CompilersLab1
                         str += Text[i];
                         i++;
 
+                        if (i >= Text.Length)
+                            break;
+                        else
+                            continue;
                     }
                 }
                 if (Text[i] != ' ' && Text[i] != ';' && Text[i] != '\n')
@@ -247,6 +251,10 @@ namespace CompilersLab1
                 }
                 if(Text[i] == ' ' || Text[i] == ';' || Text[i] == '\n') 
                     break;
+
+                //if (i < Text.Length)
+                //    i++;
+                //else break;
             }
             double a;
             if (str.Last() == '.')
@@ -385,6 +393,22 @@ namespace CompilersLab1
                 }
                 else
                 {
+                    str += Text[i];
+                    i++;
+                    while (i < Text.Length)
+                    {
+                        if (Text[i] != ' ' && Text[i] != ';' && Text[i] != '\n')
+                        {
+
+                            str += Text[i];
+                            i++;
+                        }
+                        else
+                        {
+                            i--;
+                            break;
+                        }
+                    }
                     l = new Lexem(Codes.Error, str, start);
                 }
 
