@@ -9,19 +9,13 @@ namespace CompilersLab1
     enum Codes
     {
         Identificator = 1,
-        OutputOperator = 2,
-        True = 3,
-        False = 4,
-        Null = 5,
-        Equal = 6,
-        End = 7,
-        Space = 8,
-        NewStr = 9,
-        Comment1 = 10,
-        Comment2 = 11,
-        Number = 12,
-        String = 13,
-        Char = 14,
+        Equal = 2,
+        End = 3,
+        Space = 4,
+        NewStr = 5,
+        Number = 6,
+        String = 7,
+        Char = 8,
         Error = -1
     }
 
@@ -138,7 +132,6 @@ namespace CompilersLab1
             }
             catch
             {
-                //str += Text[i];
                 Lexem l0 = new Lexem(Codes.Error, str, start);
                 lexems.Add(l0);
                 return i;
@@ -207,6 +200,7 @@ namespace CompilersLab1
             //если следующий символ подходит, то записываем его в строку
             while (i < Text.Length)
             {
+                char c = Text[i];
                 if (Char.IsDigit(Text[i]) || Text[i] == '.')
                 {
                     if (Text[i] == '.')
@@ -232,10 +226,30 @@ namespace CompilersLab1
 
                     }
                 }
-                else break;
+                if (Text[i] != ' ' && Text[i] != ';' && Text[i] != '\n')
+                {
+                    while (i < Text.Length)
+                    {
+                        if (Text[i] != ' ' && Text[i] != ';' && Text[i] != '\n')
+                        {
+                            str += Text[i];
+                            i++;
+                        }
+                        else
+                        {
+                            i--;
+                            break;
+                        }
+                    }
+                    l = new Lexem(Codes.Error, str, start);
+                    lexems.Add(l);
+                    return i;
+                }
+                if(Text[i] == ' ' || Text[i] == ';' || Text[i] == '\n') 
+                    break;
             }
             double a;
-            if(str.Last() == '.')
+            if (str.Last() == '.')
             {
 
                 l = new Lexem(Codes.Error, str, start);
@@ -270,7 +284,7 @@ namespace CompilersLab1
             {
                 if (Text[i + 1] != '"')
                 {
-                    if(Char.IsLetterOrDigit(Text[i + 1]) || Text[i + 1] == '!' || Text[i + 1] == '&' || Text[i + 1] == '?' || Text[i + 1] == ',' || Text[i + 1] == '/' || Text[i + 1] == ' ')
+                    if (Char.IsLetterOrDigit(Text[i + 1]) || Text[i + 1] == '!' || Text[i + 1] == '&' || Text[i + 1] == '?' || Text[i + 1] == ',' || Text[i + 1] == '/' || Text[i + 1] == ' ')
                     {
                         str += Text[i + 1];
                         i++;
