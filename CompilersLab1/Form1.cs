@@ -495,29 +495,6 @@ namespace CompilersLab1
                     }
 
                 }
-
-                //OutRTB.Text = s.GetResult();
-
-                //лаба 4
-
-                //StateMachine stateMachine = new StateMachine(TabControl1.SelectedTab.Controls[0].Text);
-                //stateMachine.Start();
-                //OutRTB.Text = stateMachine.Result;
-
-                //лаба 5
-
-                //var Strings = TabControl1.SelectedTab.Controls[0].Text.Split(';');
-                //Recoursive r;
-                //OutRTB.Text = "";
-
-                //for (int i = 0; i < Strings.Length; i++)
-                //{
-                //    if (Strings[i] == "")
-                //        continue;
-                //    r = new Recoursive(Strings[i].Replace(";", ""));
-                //    r.Scan();
-                //    OutRTB.Text += "Цепочка №" + (i + 1).ToString() + "\nРезультат проверки цепочки:" + r.Result + "\nПорядок разбора: " + r.ResultText + "\n";
-                //}
             }
              catch
             {
