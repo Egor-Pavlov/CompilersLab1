@@ -333,8 +333,8 @@ namespace CompilersLab1
         {
             try
             {
-                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
-                Process.Start("Acrobat.exe", " /A \"page=16\" \"" + file + "\"");
+                FileInfo fileInfo = new FileInfo("Doc.pdf");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start microsoftedge file://" + fileInfo.FullName + "#page=16"));
             }
             catch
             {
@@ -346,8 +346,8 @@ namespace CompilersLab1
         {
             try
             {
-                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
-                Process.Start("Acrobat.exe", " /A \"page=21\" \"" + file + "\"");
+                FileInfo fileInfo = new FileInfo("Doc.pdf");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start microsoftedge file://" + fileInfo.FullName + "#page=21"));
             }
             catch
             {
@@ -506,8 +506,8 @@ namespace CompilersLab1
         {
             try
             {
-                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
-                Process.Start("Acrobat.exe", " /A \"page=5\" \"" + file + "\"");
+                FileInfo fileInfo = new FileInfo("Doc.pdf");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start microsoftedge file://" + fileInfo.FullName + "#page=5"));
             }
             catch
             {
@@ -519,8 +519,8 @@ namespace CompilersLab1
         {
             try
             {
-                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
-                Process.Start("Acrobat.exe", " /A \"page=6\" \"" + file + "\"");
+                FileInfo fileInfo = new FileInfo("Doc.pdf");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start microsoftedge file://" + fileInfo.FullName + "#page=6"));
             }
             catch
             {
@@ -532,8 +532,8 @@ namespace CompilersLab1
         {
             try
             {
-                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
-                Process.Start("Acrobat.exe", " /A \"page=7\" \"" + file + "\"");
+                FileInfo fileInfo = new FileInfo("Doc.pdf");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start microsoftedge file://" + fileInfo.FullName + "#page=7"));
             }
             catch
             {
@@ -545,8 +545,8 @@ namespace CompilersLab1
         {
             try
             {
-                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
-                Process.Start("Acrobat.exe", " /A \"page=8\" \"" + file + "\"");
+                FileInfo fileInfo = new FileInfo("Doc.pdf");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start microsoftedge file://" + fileInfo.FullName + "#page=8"));
             }
             catch
             {
@@ -558,8 +558,8 @@ namespace CompilersLab1
         {
             try
             {
-                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
-                Process.Start("Acrobat.exe", " /A \"page=10\" \"" + file + "\"");
+                FileInfo fileInfo = new FileInfo("Doc.pdf");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start microsoftedge file://" + fileInfo.FullName + "#page=10"));
             }
             catch
             {
@@ -571,8 +571,8 @@ namespace CompilersLab1
         {
             try
             {
-                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
-                Process.Start("Acrobat.exe", " /A \"page=11\" \"" + file + "\"");
+                FileInfo fileInfo = new FileInfo("Doc.pdf");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start microsoftedge file://" + fileInfo.FullName + "#page=11"));
             }
             catch
             {
@@ -584,8 +584,8 @@ namespace CompilersLab1
         {
             try
             {
-                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
-                Process.Start("Acrobat.exe", " /A \"page=15\" \"" + file + "\"");
+                FileInfo fileInfo = new FileInfo("Doc.pdf");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start microsoftedge file://" + fileInfo.FullName + "#page=15"));
             }
             catch
             {
@@ -597,8 +597,9 @@ namespace CompilersLab1
         {
             try
             {
-                string file = Path.GetFullPath(@"..\..\..\info\Doc.pdf");
-                Process.Start("Acrobat.exe", " /A \"page=23\" \"" + file + "\"");
+                FileInfo fileInfo = new FileInfo("Doc.pdf");
+                Process.Start(new ProcessStartInfo("cmd", $"/c start microsoftedge file://" + fileInfo.FullName + "#page=23"));
+                
             }
             catch
             {
